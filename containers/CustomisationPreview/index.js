@@ -1,5 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { initialState, reducers } from './reducers'
+import * as actions from './actions'
+
+const STORE_KEY = '@@preview'
 
 const Container = styled.div`
   background-color: #ddd;
@@ -12,11 +18,15 @@ const Frame = styled.iframe`
 `
 
 class CustomisationPreview extends React.PureComponent {
+  static getInitialState = () => ({ [STORE_KEY]: initialState })
+
+  static getReducers = () => ({ [STORE_KEY]: reducers })
+
   componentDidMount () {
     if (window !== undefined) {
       const frame = document.getElementById('preview-frame')
-      frame.onload = function () {
-        frame.contentWindow.postMessage({ lala: 'some' }, 'http://localhost:3001')
+      frame.onload = () => {
+        this.props.registerPreviewFrame(frame)
       }
     }
   }
@@ -30,4 +40,6 @@ class CustomisationPreview extends React.PureComponent {
   }
 }
 
-export default CustomisationPreview
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch)
+
+export default connect(null, mapDispatchToProps)(CustomisationPreview)

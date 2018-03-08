@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { initialState, reducers } from './reducers'
 import Tab from 'components/Tab'
 // import SectionSidebar from 'components/SectionSidebar'
 import GeneralSettingSidebar from 'components/GeneralSettingSidebar'
+import * as actions from './actions'
 
 const STORE_KEY = '@@containers/CustomisationSideBar'
 
@@ -25,7 +27,7 @@ class CustomisationSidebar extends React.PureComponent {
           {(selectedTab) => {
             switch (selectedTab) {
               case 'Gen. Settings':
-                return <GeneralSettingSidebar />
+                return <GeneralSettingSidebar {...this.props} />
               default:
                 return null
                 // return <SectionSidebar />
@@ -41,4 +43,6 @@ const mapStateToProps = (state) => ({
   ...state[STORE_KEY]
 })
 
-export default connect(mapStateToProps)(CustomisationSidebar)
+const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomisationSidebar)

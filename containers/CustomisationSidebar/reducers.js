@@ -1,3 +1,5 @@
+import { CHANGE_HEADING_FONT } from './constants'
+
 export const initialState = {
   customisation: {
     color: 'red'
@@ -6,7 +8,7 @@ export const initialState = {
 
 export const reducers = (state = initialState, action) => {
   switch (action.type) {
-    case 'CHANGE_COLOR':
+    case CHANGE_HEADING_FONT:
       return { ...state, customisation: { ...state.customisation, color: action.payload } }
     default:
       return state

@@ -23,6 +23,8 @@ const StyledDropdown = styled(Dropdown)`
 
 class Typography extends React.PureComponent {
   render () {
+    const { changeHeadingFont } = this.props
+
     return (
       <Container>
         <Section>
@@ -31,6 +33,7 @@ class Typography extends React.PureComponent {
           </SectionHeading>
           <StyledDropdown
             label='Font'
+            onChange={changeHeadingFont}
             choices={[
               {
                 value: 'a',

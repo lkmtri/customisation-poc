@@ -12,9 +12,15 @@ const PageContainer = styled.div`
 `
 
 class Index extends React.PureComponent {
-  static getInitialState = () => ({ ...CustomisationSidebar.getInitialState() })
+  static getInitialState = () => ({ 
+    ...CustomisationSidebar.getInitialState(),
+    ...CustomisationPreview.getInitialState()
+  })
 
-  static getReducers = () => ({ ...CustomisationSidebar.getReducers() })
+  static getReducers = () => ({ 
+    ...CustomisationSidebar.getReducers(),
+    ...CustomisationPreview.getReducers()
+  })
 
   render () {
     return (

@@ -8,7 +8,7 @@ class GeneralSettingSidebar extends React.PureComponent {
   render () {
     return (
       <GeneralSettingSidebarContainer>
-        <Typography />
+        <Typography {...this.props} />
       </GeneralSettingSidebarContainer>
     )
   }
