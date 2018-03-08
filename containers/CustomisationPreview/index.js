@@ -1,0 +1,33 @@
+import React from 'react'
+import styled from 'styled-components'
+
+const Container = styled.div`
+  background-color: #ddd;
+  flex: 1;
+`
+
+const Frame = styled.iframe`
+  width: 100%;
+  height: 100%;
+`
+
+class CustomisationPreview extends React.PureComponent {
+  componentDidMount () {
+    if (window !== undefined) {
+      const frame = document.getElementById('preview-frame')
+      frame.onload = function () {
+        frame.contentWindow.postMessage({ lala: 'some' }, 'http://localhost:3001')
+      }
+    }
+  }
+
+  render () {
+    return (
+      <Container>
+        <Frame id='preview-frame' src='http://localhost:3001' sandbox='allow-forms allow-scripts allow-same-origin allow-popups' />
+      </Container>
+    )
+  }
+}
+
+export default CustomisationPreview
