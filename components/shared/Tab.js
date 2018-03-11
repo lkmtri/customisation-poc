@@ -22,14 +22,21 @@ const TabItem = styled.div`
 `
 
 class Tab extends React.PureComponent {
-  state = {
-    selectedTab: null
+  static defaultProps = {
+    tabs: []
+  }
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      selectedTab: props.selectedTab || props.tabs[0]
+    }
   }
 
   setSelectedTab = (tab) => () => this.setState({ selectedTab: tab })
 
   render () {
-    const { tabs } = this.props
+    const { tabs, children } = this.props
     const { selectedTab } = this.state
     return (
       <Container>
@@ -40,7 +47,7 @@ class Tab extends React.PureComponent {
             </TabItem>
           ))}
         </TabContainer>
-        {this.props.children(selectedTab)}
+        {children(selectedTab)}
       </Container>
     )
   }

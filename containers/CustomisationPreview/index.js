@@ -18,11 +18,29 @@ const Frame = styled.iframe`
 `
 
 class CustomisationPreview extends React.PureComponent {
+  static defaultProps = {
+    frameUrl: 'http://localhost:3001'
+  }
+
   static getInitialState = () => ({ [STORE_KEY]: initialState })
 
   static getReducers = () => ({ [STORE_KEY]: reducers })
 
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.frameUrl !== this.props.frameUrl) {
+      this.props.registerPreviewFrame(null)
+    }
+  }
+
   componentDidMount () {
+    this.registerPreviewFrame()
+  }
+
+  componentDidUpdate () {
+    this.registerPreviewFrame()
+  }
+
+  registerPreviewFrame = () => {
     if (window !== undefined) {
       const frame = document.getElementById('preview-frame')
       frame.onload = () => {
@@ -32,9 +50,11 @@ class CustomisationPreview extends React.PureComponent {
   }
 
   render () {
+    const { frameUrl } = this.props
+
     return (
       <Container>
-        <Frame id='preview-frame' src='http://localhost:3001' sandbox='allow-forms allow-scripts allow-same-origin allow-popups' />
+        <Frame id='preview-frame' src={frameUrl} sandbox='allow-forms allow-scripts allow-same-origin allow-popups' />
       </Container>
     )
   }

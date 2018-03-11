@@ -14,6 +14,7 @@ injectGlobal`
   * {
     font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;  
     -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
   }
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button {
@@ -38,11 +39,6 @@ export default class AppDocument extends Document {
           <meta name='viewport' content='width=device-width, minimal-ui, initial-scale=1' />
           <meta name='apple-mobile-web-app-capable' content='yes' />
           {this.props.styleTags}
-          <script>
-            {function setUpFrame() {
-              console.log('setUpFrame')
-            }}
-          </script>
         </Head>
         <body>
           <div className='root'>

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Page from 'decorators/Page'
 import CustomisationSidebar from 'containers/CustomisationSidebar'
 import CustomisationPreview from 'containers/CustomisationPreview'
-import Flex from 'components/Flex'
+import Flex from 'components/shared/Flex'
 
 const PageContainer = styled.div`
   height: 100vh;
@@ -11,13 +11,20 @@ const PageContainer = styled.div`
   overflow: hidden;
 `
 
+const PortalContainer = styled.div`
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+`
+
 class Index extends React.PureComponent {
-  static getInitialState = () => ({ 
+  static getInitialState = () => ({
     ...CustomisationSidebar.getInitialState(),
     ...CustomisationPreview.getInitialState()
   })
 
-  static getReducers = () => ({ 
+  static getReducers = () => ({
     ...CustomisationSidebar.getReducers(),
     ...CustomisationPreview.getReducers()
   })
@@ -29,6 +36,7 @@ class Index extends React.PureComponent {
           <CustomisationSidebar />
           <CustomisationPreview />
         </Flex>
+        <PortalContainer id='portal-node' />
       </PageContainer>
     )
   }

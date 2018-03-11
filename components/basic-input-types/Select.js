@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   width: 100%;
+  padding: 10px;
+  background-color: #999;
 `
 
 const Select = styled.select`
@@ -29,14 +31,14 @@ class Dropdown extends React.PureComponent {
   }
 
   render () {
-    const { className, choices, label } = this.props
+    const { className, options, label } = this.props
     return (
       <Container className={className}>
         <Label>{label}</Label>
         <Select onChange={this.handleChange}>
-          {choices.map(({ value, display }) => (
+          {options.map(({ value, label }) => (
             <option value={value}>
-              {display}
+              {label}
             </option>
           ))}
         </Select>

@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { initialState, reducers } from './reducers'
-import Tab from 'components/Tab'
+import Tab from 'components/shared/Tab'
 // import SectionSidebar from 'components/SectionSidebar'
-import GeneralSettingSidebar from 'components/GeneralSettingSidebar'
+import ThemeSettings from 'components/theme-settings/ThemeSettings'
 import * as actions from './actions'
 
 const STORE_KEY = '@@containers/CustomisationSideBar'
@@ -23,11 +23,11 @@ class CustomisationSidebar extends React.PureComponent {
   render () {
     return (
       <CustomisationSidebarContainer>
-        <Tab tabs={['Sections', 'Gen. Settings']}>
+        <Tab tabs={['Sections', 'Theme']}>
           {(selectedTab) => {
             switch (selectedTab) {
-              case 'Gen. Settings':
-                return <GeneralSettingSidebar {...this.props} />
+              case 'Theme':
+                return <ThemeSettings {...this.props} />
               default:
                 return null
                 // return <SectionSidebar />
