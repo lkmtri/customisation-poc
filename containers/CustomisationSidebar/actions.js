@@ -1,6 +1,6 @@
 import { withFrameUpdate } from 'tools/redux/actions'
-import { CHANGE_HEADING_FONT } from './constants'
+import { CHANGE_THEME_SETTINGS } from './constants'
 
-export const changeHeadingFont = withFrameUpdate(
-  (font) => ({ type: CHANGE_HEADING_FONT, payload: font })
+export const changeThemeSettingsAction = withFrameUpdate(
+  ({ key, value }) => ({ type: CHANGE_THEME_SETTINGS, payload: { key, value } })
 )

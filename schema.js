@@ -22,10 +22,44 @@ export const schema = [
         type: 'select',
         id: 'typography-heading-size',
         label: 'Heading Font Size',
+        default: '26px',
         options: [
-          { value: '15px', label: '15px' },
-          { value: '16px', label: '16px' },
-          { value: '17px', label: '17px' }
+          {
+            'value': '20px',
+            'label': '20px'
+          },
+          {
+            'value': '22px',
+            'label': '22px'
+          },
+          {
+            'value': '24px',
+            'label': '24px'
+          },
+          {
+            'value': '26px',
+            'label': '26px'
+          },
+          {
+            'value': '28px',
+            'label': '28px'
+          },
+          {
+            'value': '30px',
+            'label': '30px'
+          },
+          {
+            'value': '32px',
+            'label': '32px'
+          },
+          {
+            'value': '34px',
+            'label': '34px'
+          },
+          {
+            'value': '36px',
+            'label': '36px'
+          }
         ]
       }
     ]

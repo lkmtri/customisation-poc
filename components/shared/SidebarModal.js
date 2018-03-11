@@ -12,24 +12,26 @@ const HeaderContainer = styled.div`
   width: 100%;
   display: flex;
   background-color: #999;
+  position: relative;
+  justify-content: center;
 `
 
 const TitleContainer = styled.div`
   height: 50px;
   display: flex;
-  flex: 1 0 auto;
   align-items: center;
-  justify-content: center;
 `
 
 const CloseButton = styled.div`
   width: 50px;
   height: 50px;
+  padding-left: 10px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding-left: 10px;
   cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
 `
 
 class SidebarModal extends React.PureComponent {

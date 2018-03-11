@@ -2,11 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { initialState, reducers } from './reducers'
+import ErrorBoundary from 'components/shared/ErrorBoundary'
 import Tab from 'components/shared/Tab'
 // import SectionSidebar from 'components/SectionSidebar'
 import ThemeSettings from 'components/theme-settings/ThemeSettings'
 import * as actions from './actions'
+import { initialState, reducers } from './reducers'
 
 const STORE_KEY = '@@containers/CustomisationSideBar'
 
@@ -22,19 +23,21 @@ class CustomisationSidebar extends React.PureComponent {
 
   render () {
     return (
-      <CustomisationSidebarContainer>
-        <Tab tabs={['Sections', 'Theme']}>
-          {(selectedTab) => {
-            switch (selectedTab) {
-              case 'Theme':
-                return <ThemeSettings {...this.props} />
-              default:
-                return null
-                // return <SectionSidebar />
-            }
-          }}
-        </Tab>
-      </CustomisationSidebarContainer>
+      <ErrorBoundary>
+        <CustomisationSidebarContainer>
+          <Tab tabs={['Sections', 'Theme']}>
+            {(selectedTab) => {
+              switch (selectedTab) {
+                case 'Theme':
+                  return <ThemeSettings {...this.props} />
+                default:
+                  return null
+                  // return <SectionSidebar />
+              }
+            }}
+          </Tab>
+        </CustomisationSidebarContainer>
+      </ErrorBoundary>
     )
   }
 }

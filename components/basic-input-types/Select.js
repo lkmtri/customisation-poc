@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import BasicInputType from 'decorators/BasicInputType'
 
 const Container = styled.div`
   width: 100%;
@@ -26,16 +27,12 @@ class Dropdown extends React.PureComponent {
     onChange: () => {}
   }
 
-  handleChange = (e) => {
-    this.props.onChange(e.target.value)
-  }
-
   render () {
-    const { className, options, label } = this.props
+    const { className, default: defaultValue, options, label, onChange } = this.props
     return (
       <Container className={className}>
         <Label>{label}</Label>
-        <Select onChange={this.handleChange}>
+        <Select defaultValue={defaultValue} onChange={onChange}>
           {options.map(({ value, label }) => (
             <option value={value}>
               {label}
@@ -47,4 +44,4 @@ class Dropdown extends React.PureComponent {
   }
 }
 
-export default Dropdown
+export default BasicInputType(Dropdown)

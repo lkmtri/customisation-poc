@@ -4,15 +4,28 @@ import { schema } from 'schema'
 import SidebarModal from 'components/shared/SidebarModal'
 import ThemeSettingType from 'components/theme-settings/ThemeSettingType'
 
-const Container = styled.div``
+const Container = styled.div`
+  margin-top: 10px;
+`
 
 const SettingType = styled.div`
   width: 100%;
   height: 50px;
-  display: flex:
+  background-color: #999;
+  display: flex;
   align-items: center;
+  padding-left: 10px;
+  position: relative;
   cursor: pointer;
-  border-bottom: white 1px solid;
+  &:hover {
+    background-color: #aaa;
+  }
+  &:after {
+    content: '>';
+    position: absolute;
+    top: 15px;
+    right: 10px;
+  }
 `
 
 class GeneralSettingSidebar extends React.PureComponent {
@@ -27,14 +40,14 @@ class GeneralSettingSidebar extends React.PureComponent {
   closeSettingType = () => this.setState({ showSettingType: false })
 
   render () {
+    const { changeThemeSettingsAction } = this.props
     const { showSettingType, settingType } = this.state
-
     return (
       <Container>
         {schema.map(({ settings, name }) => <SettingType onClick={this.openSettingType({ settings, name })} settings={settings}>{name}</SettingType>)}
         {showSettingType && (
           <SidebarModal title={settingType.name} onClose={this.closeSettingType}>
-            <ThemeSettingType settings={settingType.settings} />
+            <ThemeSettingType changeThemeSettingsAction={changeThemeSettingsAction} settings={settingType.settings} />
           </SidebarModal>
         )}
       </Container>

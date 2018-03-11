@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from 'components/Typo'
+import { Text } from 'components/shared/Typo'
 
 class ErrorBoundary extends React.Component {
   state = {
