@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { isMember } from 'tools/array'
+import BasicInputType from 'decorators/BasicInputType'
 
 const Container = styled.div`
   width: 100%;
@@ -38,10 +39,8 @@ class Dropdown extends React.PureComponent {
     const { options } = this.props
     const groups = options.reduce((acc, option) => {
       !isMember(acc, option.group) && acc.push(option.group)
-      console.log(acc, option.group, isMember(acc, option.group))
       return acc
     }, [])
-    console.log(groups)
     return groups.map(group => (
       <optgroup key={group} label={group}>
         {options.filter(option => option.group === group).map(({ value, label }) => (<option key={value} value={value}>{label}</option>))}
@@ -57,7 +56,6 @@ class Dropdown extends React.PureComponent {
   render () {
     const { className, default: defaultValue, label, onChange } = this.props
     const { isGroupedOption } = this.state
-    console.log(isGroupedOption)
     return (
       <Container className={className}>
         <Label>{label}</Label>
@@ -69,4 +67,4 @@ class Dropdown extends React.PureComponent {
   }
 }
 
-export default Dropdown
+export default BasicInputType(Dropdown)

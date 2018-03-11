@@ -6,10 +6,9 @@ import ErrorBoundary from 'components/shared/ErrorBoundary'
 import Tab from 'components/shared/Tab'
 // import SectionSidebar from 'components/SectionSidebar'
 import ThemeSettings from 'components/theme-settings/ThemeSettings'
+import { STORE_KEY } from './constants'
 import * as actions from './actions'
 import { initialState, reducers } from './reducers'
-
-const STORE_KEY = '@@containers/CustomisationSideBar'
 
 const CustomisationSidebarContainer = styled.div`
   background-color: #ccc;

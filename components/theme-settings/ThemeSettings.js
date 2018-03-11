@@ -44,7 +44,7 @@ class GeneralSettingSidebar extends React.PureComponent {
     const { showSettingType, settingType } = this.state
     return (
       <Container>
-        {schema.map(({ settings, name }) => <SettingType onClick={this.openSettingType({ settings, name })} settings={settings}>{name}</SettingType>)}
+        {schema.map(({ settings, name }) => <SettingType key={name} onClick={this.openSettingType({ settings, name })} settings={settings}>{name}</SettingType>)}
         {showSettingType && (
           <SidebarModal title={settingType.name} onClose={this.closeSettingType}>
             <ThemeSettingType changeThemeSettingsAction={changeThemeSettingsAction} settings={settingType.settings} />
