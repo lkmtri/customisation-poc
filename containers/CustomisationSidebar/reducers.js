@@ -1,4 +1,4 @@
-import { CHANGE_THEME_SETTINGS } from './constants'
+import { LOAD_THEME, CHANGE_THEME_SETTINGS } from './constants'
 
 export const initialState = {
   customisation: {
@@ -6,11 +6,17 @@ export const initialState = {
   },
   themeSettings: {
 
-  }
+  },
+  themeSettingSchema: [],
+  themeSettingData: {},
+  sectionSettingSchema: [],
+  sectionSettingData: {}
 }
 
 export const reducers = (state = initialState, action) => {
   switch (action.type) {
+    case LOAD_THEME:
+      return { ...state, ...action.payload }
     case CHANGE_THEME_SETTINGS:
       return { ...state, themeSettings: { ...state.themeSettings, [action.payload.key]: action.payload.value } }
     default:

@@ -21,6 +21,7 @@ class CustomisationSidebar extends React.PureComponent {
   static getReducers = () => ({ [STORE_KEY]: reducers })
 
   render () {
+    const { themeSettingSchema, themeSettingData, changeThemeSettingsAction } = this.props
     return (
       <ErrorBoundary>
         <CustomisationSidebarContainer>
@@ -28,7 +29,7 @@ class CustomisationSidebar extends React.PureComponent {
             {(selectedTab) => {
               switch (selectedTab) {
                 case 'Theme':
-                  return <ThemeSettings {...this.props} />
+                  return <ThemeSettings schema={themeSettingSchema} data={themeSettingData} changeThemeSettingsAction={changeThemeSettingsAction} />
                 default:
                   return null
                   // return <SectionSidebar />

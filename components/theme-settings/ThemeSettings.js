@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { schema } from 'schema'
 import SidebarModal from 'components/shared/SidebarModal'
 import ThemeSettingType from 'components/theme-settings/ThemeSettingType'
 
@@ -40,8 +39,9 @@ class GeneralSettingSidebar extends React.PureComponent {
   closeSettingType = () => this.setState({ showSettingType: false })
 
   render () {
-    const { changeThemeSettingsAction } = this.props
+    const { changeThemeSettingsAction, schema } = this.props
     const { showSettingType, settingType } = this.state
+
     return (
       <Container>
         {schema.map(({ settings, name }) => <SettingType key={name} onClick={this.openSettingType({ settings, name })} settings={settings}>{name}</SettingType>)}
