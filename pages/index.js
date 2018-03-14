@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Page from 'decorators/Page'
 import CustomisationSidebar from 'containers/CustomisationSidebar'
 import CustomisationPreview from 'containers/CustomisationPreview'
+import FrameConnector from 'containers/FrameConnector'
 import Flex from 'components/shared/Flex'
 
 const PageContainer = styled.div`
@@ -21,23 +22,27 @@ const PortalContainer = styled.div`
 class Index extends React.PureComponent {
   static getInitialState = () => ({
     ...CustomisationSidebar.getInitialState(),
-    ...CustomisationPreview.getInitialState()
+    ...CustomisationPreview.getInitialState(),
+    ...FrameConnector.getInitialState()
   })
 
   static getReducers = () => ({
     ...CustomisationSidebar.getReducers(),
-    ...CustomisationPreview.getReducers()
+    ...CustomisationPreview.getReducers(),
+    ...FrameConnector.getReducers()
   })
 
   render () {
     return (
-      <PageContainer>
-        <Flex style={{ height: '100%', width: '100%' }}>
-          <CustomisationSidebar />
-          <CustomisationPreview />
-        </Flex>
-        <PortalContainer id='portal-node' />
-      </PageContainer>
+      <FrameConnector>
+        <PageContainer>
+          <Flex style={{ height: '100%', width: '100%' }}>
+            <CustomisationSidebar />
+            <CustomisationPreview />
+          </Flex>
+          <PortalContainer id='portal-node' />
+        </PageContainer>
+      </FrameConnector>
     )
   }
 }

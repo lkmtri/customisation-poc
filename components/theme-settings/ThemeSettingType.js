@@ -1,7 +1,7 @@
 import React from 'react'
-import Select from 'components/basic-input-types/Select'
-import Header from 'components/basic-input-types/Header'
-import Text from 'components/basic-input-types/Text'
+import Select from 'components/input-types/Select'
+import Header from 'components/input-types/Header'
+import Text from 'components/input-types/Text'
 
 const schemaToInputTypesMap = {
   'header': Header,
