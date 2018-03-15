@@ -18,7 +18,16 @@ export const reducers = (state = initialState, action) => {
     case LOAD_THEME:
       return { ...state, ...action.payload }
     case CHANGE_THEME_SETTINGS:
-      return { ...state, themeSettings: { ...state.themeSettings, [action.payload.key]: action.payload.value } }
+      return {
+        ...state,
+        themeSettingData: {
+          ...state.themeSettingData,
+          current: {
+            ...state.themeSettingData.current,
+            [action.payload.key]: action.payload.value
+          }
+        }
+      }
     default:
       return state
   }
