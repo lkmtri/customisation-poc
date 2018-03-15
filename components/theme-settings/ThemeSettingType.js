@@ -3,12 +3,14 @@ import Select from 'components/input-types/Select'
 import Header from 'components/input-types/Header'
 import Text from 'components/input-types/Text'
 import Checkbox from 'components/input-types/Checkbox'
+import Textarea from 'components/input-types/Textarea'
 
 const schemaToInputTypesMap = {
   'header': Header,
   'text': Text,
   'select': Select,
-  'checkbox': Checkbox
+  'checkbox': Checkbox,
+  'textarea': Textarea
 }
 
 class ThemeSettingType extends React.PureComponent {

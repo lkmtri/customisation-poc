@@ -1,7 +1,6 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { STORE_KEY as CUSTOMISATION_STORE_KEY } from 'containers/CustomisationSidebar/constants'
 import { STORE_KEY as OWN_STORE_KEY } from './constants'
 import { STORE_KEY as PREVIEW_FRAME_STORE_KEY } from 'containers/CustomisationPreview/constants'
 import { loadTheme } from 'containers/CustomisationSidebar/actions'
@@ -25,18 +24,14 @@ class FrameConnector extends React.PureComponent {
   }
 
   componentWillReceiveProps (nextProps) {
-    const { currentAction, pushUpdateToPreviewFrame, pushUpdate } = nextProps
-    currentAction.shouldUpdateFrame && pushUpdateToPreviewFrame()
-    this.props.pushUpdate !== pushUpdate && this.pushUpdateToPreviewFrame()
+    const { currentAction } = nextProps
+    currentAction.shouldUpdateFrame && this.pushUpdateToPreviewFrame(currentAction.payload)
   }
 
-  pushUpdateToPreviewFrame = () => {
-    const { frame, themeSettingData, sectionSettingData } = this.props
+  pushUpdateToPreviewFrame = (update) => {
+    const { frame } = this.props
     if (window !== undefined) {
-      frame && frame.contentWindow.postMessage({
-        themeSettingData,
-        sectionSettingData
-      }, 'http://localhost:3001')
+      frame && frame.contentWindow.postMessage(update, 'http://localhost:3001')
     }
   }
 
@@ -51,8 +46,7 @@ class FrameConnector extends React.PureComponent {
 
 const mapStateToProps = (state) => ({
   ...state[OWN_STORE_KEY],
-  ...state[PREVIEW_FRAME_STORE_KEY],
-  ...state[CUSTOMISATION_STORE_KEY]
+  ...state[PREVIEW_FRAME_STORE_KEY]
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
