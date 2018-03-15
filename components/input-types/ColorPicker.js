@@ -4,7 +4,7 @@ import BasicInputType from 'decorators/BasicInputType'
 import { InputTypeContainer } from 'components/shared/Containers'
 import { Label } from 'components/shared/Typo'
 
-class ImagePicker extends React.PureComponent {
+class ColorPicker extends React.PureComponent {
   render () {
     const { label, onChange } = this.props
 
@@ -16,4 +16,4 @@ class ImagePicker extends React.PureComponent {
   }
 }
 
-export default BasicInputType(ImagePicker)
+export default BasicInputType(ColorPicker)
