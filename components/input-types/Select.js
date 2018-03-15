@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { isMember } from 'tools/array'
 import BasicInputType from 'decorators/BasicInputType'
+import { InputTypeContainer } from 'components/shared/Containers'
+import { Label } from 'components/shared/Typo'
 
 const Select = styled.select`
   width: 100%;
@@ -42,12 +44,15 @@ class Dropdown extends React.PureComponent {
   }
 
   render () {
-    const { default: defaultValue, onChange } = this.props
+    const { default: defaultValue, label, onChange } = this.props
     const { isGroupedOption } = this.state
     return (
-      <Select defaultValue={defaultValue} onChange={onChange}>
-        {isGroupedOption ? this.renderGroupedSelect() : this.renderSelect()}
-      </Select>
+      <InputTypeContainer>
+        <Label>{label}</Label>
+        <Select defaultValue={defaultValue} onChange={onChange}>
+          {isGroupedOption ? this.renderGroupedSelect() : this.renderSelect()}
+        </Select>
+      </InputTypeContainer>
     )
   }
 }

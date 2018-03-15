@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import BasicInputType from 'decorators/BasicInputType'
+import { InputTypeContainer } from 'components/shared/Containers'
+import { Label } from 'components/shared/Typo'
 
 const Input = styled.input`
   display: block;
@@ -17,9 +19,12 @@ const Input = styled.input`
 
 class Text extends React.PureComponent {
   render () {
-    const { default: defaultValue, onChange } = this.props
+    const { label, default: defaultValue, onChange } = this.props
     return (
-      <Input defaultValue={defaultValue} onChange={onChange} />
+      <InputTypeContainer>
+        <Label>{label}</Label>
+        <Input defaultValue={defaultValue} onChange={onChange} />
+      </InputTypeContainer>
     )
   }
 }
