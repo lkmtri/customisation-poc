@@ -16,7 +16,8 @@ const RadioInput = styled.input`
 
 class Radio extends React.PureComponent {
   static defaultProps = {
-    defaultValue: []
+    defaultValue: [],
+    multi: false
   }
 
   constructor (props) {
@@ -27,7 +28,12 @@ class Radio extends React.PureComponent {
   }
 
   handleChange = (value, e) => {
-    const { onChange } = this.props
+    const { onChange, multi } = this.props
+    if (!multi) {
+      this.setState({ selectedOptions: [value] })
+      onChange([ value ])
+      return
+    }
     const { selectedOptions } = this.state
     let found = false
     const nextSelectedOptions = selectedOptions.reduce((acc, cur) => {
@@ -52,7 +58,7 @@ class Radio extends React.PureComponent {
       <InputTypeContainer>
         <Label>{label}</Label>
         {options.map(({ value, label }) => (
-          <RadioInputContainer>
+          <RadioInputContainer key={label}>
             <RadioInput type='radio' value={value} name={label} checked={this.getCheckStatus(value)} onClick={this.handleChange.bind(null, value)} />
             <Label>{label}</Label>
           </RadioInputContainer>
