@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from 'components/shared/Typo'
+import { TextStyle } from 'components/shared/Typo'
 
 class ErrorBoundary extends React.Component {
   state = {
@@ -18,7 +18,7 @@ class ErrorBoundary extends React.Component {
     const { renderError, children } = this.props
     const { hasError } = this.state
     return hasError
-      ? (typeof renderError === 'function' ? renderError() : <Text>Something went wrong.</Text>)
+      ? (typeof renderError === 'function' ? renderError() : <TextStyle>Something went wrong.</TextStyle>)
       : children
   }
 }

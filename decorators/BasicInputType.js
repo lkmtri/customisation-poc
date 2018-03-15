@@ -1,4 +1,6 @@
 import React from 'react'
+import { InputTypeContainer } from 'components/shared/Containers'
+import { Label } from 'components/shared/Typo'
 
 const createBasicInputType = (InputComponent) => class BasicInputType extends React.PureComponent {
   static defaultProps = {
@@ -11,7 +13,13 @@ const createBasicInputType = (InputComponent) => class BasicInputType extends Re
   }
 
   render () {
-    return <InputComponent onChange={this.handleOnChange} {...this.props} />
+    const { label } = this.props
+    return (
+      <InputTypeContainer>
+        <Label>{label}</Label>
+        <InputComponent onChange={this.handleOnChange} {...this.props} />
+      </InputTypeContainer>
+    )
   }
 }
 

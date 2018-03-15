@@ -1,19 +1,13 @@
 import React from 'react'
-import styled from 'styled-components'
-import { HeaderText } from 'components/shared/Typo'
-
-const Container = styled.div`
-  margin-top: 10px;
-  background-color: #999;
-  padding: 10px 10px 0 10px;
-`
+import { Subheading } from 'components/shared/Typo'
+import { HeaderTypeContainer } from 'components/shared/Containers'
 
 class Header extends React.PureComponent {
   render () {
     return (
-      <Container>
-        <HeaderText>{this.props.content}</HeaderText>
-      </Container>
+      <HeaderTypeContainer>
+        <Subheading>{this.props.content}</Subheading>
+      </HeaderTypeContainer>
     )
   }
 }

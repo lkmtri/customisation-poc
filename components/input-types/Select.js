@@ -3,24 +3,12 @@ import styled from 'styled-components'
 import { isMember } from 'tools/array'
 import BasicInputType from 'decorators/BasicInputType'
 
-const Container = styled.div`
-  width: 100%;
-  padding: 10px;
-  background-color: #999;
-`
-
 const Select = styled.select`
   width: 100%;
   height: 30px;
   &:focus {
     outline: none;
   }
-`
-
-const Label = styled.div`
-  margin-bottom: 6px;
-  font-size: 0.9em;
-  color: #ddd;
 `
 
 class Dropdown extends React.PureComponent {
@@ -54,15 +42,12 @@ class Dropdown extends React.PureComponent {
   }
 
   render () {
-    const { className, default: defaultValue, label, onChange } = this.props
+    const { default: defaultValue, onChange } = this.props
     const { isGroupedOption } = this.state
     return (
-      <Container className={className}>
-        <Label>{label}</Label>
-        <Select defaultValue={defaultValue} onChange={onChange}>
-          {isGroupedOption ? this.renderGroupedSelect() : this.renderSelect()}
-        </Select>
-      </Container>
+      <Select defaultValue={defaultValue} onChange={onChange}>
+        {isGroupedOption ? this.renderGroupedSelect() : this.renderSelect()}
+      </Select>
     )
   }
 }
