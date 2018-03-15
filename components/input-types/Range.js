@@ -8,6 +8,7 @@ const RangeInputContainer = styled.div`
   width: 100%;
   height: auto;
   display: flex;
+  align-items: center;
   margin-top: 5px;
 `
 
@@ -34,7 +35,20 @@ const RangeInputSlider = styled.div`
 `
 
 const RangeValue = styled.div`
-  width: 20px;
+  width: 60px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  color: #ddd;
+`
+
+const RangeValueInput = styled.input`
+  width: 30px;
+  margin-right: 2px;
+  border: none;
+  &:focus {
+    outline: none;
+  }
 `
 
 class RangeInput extends React.PureComponent {
@@ -43,14 +57,17 @@ class RangeInput extends React.PureComponent {
     this.state = {
       intervalNum: (props.max - props.min) / props.step,
       value: props.defaultValue,
-      shouldTrackMouse: false,
-      mouseX: 0
+      shouldTrackMouse: false
     }
   }
 
   componentDidMount () {
     if (window !== undefined) {
-      document.addEventListener('mouseup', this.untrackMousePosition)
+      setTimeout(() => {
+        this.setState({
+          sliderLeft: this.getSliderLeftFromValue(this.state.value)
+        })
+      }, 0)
     }
   }
 
@@ -60,9 +77,13 @@ class RangeInput extends React.PureComponent {
     }
   }
 
-  onMouseDown = ({ clientX, clientY }) => {
+  inputBarMouseDown = this.trackMousePosition
+
+  onMouseDown = (e) => {
+    e.stopPropagation()
     this.setState({ shouldTrackMouse: true })
     document.addEventListener('mousemove', this.trackMousePosition)
+    document.addEventListener('mouseup', this.untrackMousePosition)
   }
 
   untrackMousePosition = () => {
@@ -70,35 +91,69 @@ class RangeInput extends React.PureComponent {
     this.setState(
       (state) => ({
         ...state,
-        shouldTrackMouse: false,
-        mouseX: 0
+        shouldTrackMouse: false
       }),
-      () => this.props.onChange(this.state.value)
+      () => {
+        this.props.onChange(this.state.value)
+        document.removeEventListener('mouseup', this.untrackMousePosition)
+      }
     )
   }
 
   trackMousePosition = ({ clientX }) => {
-    const { min, max } = this.props
-    const { left: inputBarLeft, right: inputBarRight } = this._inputBar.getBoundingClientRect()
-    const stepLength = (inputBarRight - inputBarLeft) / this.state.intervalNum
-    const stepNum = (clientX - inputBarLeft) / stepLength
-    const value = min + stepNum > max ? max : parseInt(min + stepNum)
+    const value = this.getValueFromMousePosition(clientX)
     this.setState({
-      mouseX: clientX,
-      sliderLeft: (value - min) * stepLength,
+      sliderLeft: this.getSliderLeftFromValue(value),
       value
     })
   }
 
+  computeStepLength = () => {
+    const { width: inputBarWidth } = this._inputBar.getBoundingClientRect()
+    const stepLength = inputBarWidth / this.state.intervalNum
+    return stepLength
+  }
+
+  getValueFromMousePosition = (mouseX) => {
+    const { left: inputBarLeft } = this._inputBar.getBoundingClientRect()
+    const stepLength = this.computeStepLength()
+    const stepNum = Math.round((mouseX - inputBarLeft) / stepLength)
+    return this.getValueFromStepNum(stepNum)
+  }
+
+  getValueFromStepNum = (stepNum) => {
+    const { min, max, step } = this.props
+    return min + stepNum * step > max ? max : (min + stepNum * step < min ? min : min + stepNum * step)
+  }
+
+  getSliderLeftFromValue = (value) => {
+    const { min, step } = this.props
+    const stepLength = this.computeStepLength()
+    return stepLength * (value - min) / step
+  }
+
+  handleValueInputChange = (e) => {
+    const { min, step } = this.props
+    const stepNum = Math.round((e.target.value - min) / step)
+    const value = this.getValueFromStepNum(stepNum)
+    this.setState({
+      value,
+      sliderLeft: this.getSliderLeftFromValue(value)
+    })
+  }
+
   render () {
+    const { unit, step } = this.props
     const { value, sliderLeft } = this.state
 
     return (
       <RangeInputContainer>
-        <RangeInputBar innerRef={e => { this._inputBar = e }}>
+        <RangeInputBar innerRef={e => { this._inputBar = e }} onMouseDown={this.trackMousePosition}>
           <RangeInputSlider left={sliderLeft} onMouseDown={this.onMouseDown} />
         </RangeInputBar>
-        <RangeValue>{value}</RangeValue>
+        <RangeValue>
+          <RangeValueInput type='number' step={step} value={value} onChange={this.handleValueInputChange} />{unit}
+        </RangeValue>
       </RangeInputContainer>
     )
   }
