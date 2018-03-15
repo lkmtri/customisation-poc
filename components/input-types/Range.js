@@ -77,8 +77,6 @@ class RangeInput extends React.PureComponent {
     }
   }
 
-  inputBarMouseDown = this.trackMousePosition
-
   onMouseDown = (e) => {
     e.stopPropagation()
     this.setState({ shouldTrackMouse: true })

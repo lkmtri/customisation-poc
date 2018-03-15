@@ -5,6 +5,7 @@ import Text from 'components/input-types/Text'
 import Checkbox from 'components/input-types/Checkbox'
 import Textarea from 'components/input-types/Textarea'
 import Range from 'components/input-types/Range'
+import Radio from 'components/input-types/Radio'
 
 const schemaToInputTypesMap = {
   'header': Header,
@@ -12,7 +13,8 @@ const schemaToInputTypesMap = {
   'select': Select,
   'checkbox': Checkbox,
   'textarea': Textarea,
-  'range': Range
+  'range': Range,
+  'radio': Radio
 }
 
 class ThemeSettingType extends React.PureComponent {
