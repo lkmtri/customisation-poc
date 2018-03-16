@@ -12,25 +12,14 @@ const Container = styled(InputTypeContainer)`
 `
 
 class Checkbox extends React.PureComponent {
-  constructor (props) {
-    super(props)
-    this.state = {
-      checked: props.default
-    }
-  }
-
   handleChange = (e) => {
-    const { onChange } = this.props
-    const { checked } = this.state
-    this.setState(
-      (state) => ({ ...state, checked: !checked }),
-      () => onChange(!checked)
-    )
+    const { onChange, value } = this.props
+    onChange(!value)
   }
 
   render () {
-    const { label } = this.props
-    const { checked } = this.state
+    const { value, default: defaultValue, label } = this.props
+    const checked = value !== undefined ? value : defaultValue
 
     return (
       <Container>

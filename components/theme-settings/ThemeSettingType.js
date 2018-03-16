@@ -19,10 +19,10 @@ const schemaToInputTypesMap = {
 
 class ThemeSettingType extends React.PureComponent {
   render () {
-    const { settings, changeThemeSettingsAction } = this.props
+    const { settings, data, changeThemeSettingsAction } = this.props
     return settings.map((setting, idx) => {
       const InputComponent = schemaToInputTypesMap[setting.type]
-      return <InputComponent key={idx} changeThemeSettingsAction={changeThemeSettingsAction} {...setting} />
+      return <InputComponent key={idx} value={data[setting.id]} changeThemeSettingsAction={changeThemeSettingsAction} {...setting} />
     })
   }
 }

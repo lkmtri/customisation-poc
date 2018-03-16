@@ -20,12 +20,12 @@ const TextAreaInput = styled.textarea`
 
 class TextArea extends React.PureComponent {
   render () {
-    const { label, default: defaultValue, onChange } = this.props
+    const { label, value, default: defaultValue, onChange } = this.props
 
     return (
       <InputTypeContainer>
         <Label>{label}</Label>
-        <TextAreaInput defaultValue={defaultValue} onChange={onChange} />
+        <TextAreaInput value={value} defaultValue={defaultValue} onChange={onChange} />
       </InputTypeContainer>
     )
   }

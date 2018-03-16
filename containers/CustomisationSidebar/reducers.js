@@ -22,10 +22,7 @@ export const reducers = (state = initialState, action) => {
         ...state,
         themeSettingData: {
           ...state.themeSettingData,
-          current: {
-            ...state.themeSettingData.current,
-            [action.payload.key]: action.payload.value
-          }
+          [action.payload.key]: action.payload.value
         }
       }
     default:

@@ -20,13 +20,6 @@ class Radio extends React.PureComponent {
     multi: false
   }
 
-  constructor (props) {
-    super(props)
-    this.state = {
-      selectedOptions: props.defaultValue
-    }
-  }
-
   handleChange = (value, e) => {
     const { onChange, multi } = this.props
     if (!multi) {
@@ -41,14 +34,12 @@ class Radio extends React.PureComponent {
       return acc
     }, [])
     !found && nextSelectedOptions.push(value)
-    this.setState(
-      (state) => ({ ...state, selectedOptions: nextSelectedOptions }),
-      () => onChange(nextSelectedOptions)
-    )
+    onChange(nextSelectedOptions)
   }
 
   getCheckStatus = (value) => {
-    const { selectedOptions } = this.state
+    const { value: _selectedOptions, defaultValue } = this.props
+    const selectedOptions = _selectedOptions || defaultValue
     return selectedOptions.findIndex((el) => el === value) >= 0
   }
 

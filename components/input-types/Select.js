@@ -18,12 +18,7 @@ class Dropdown extends React.PureComponent {
     onChange: () => {}
   }
 
-  constructor (props) {
-    super(props)
-    this.state = {
-      isGroupedOption: props.options.reduce((acc, option) => acc && option.group !== undefined, true)
-    }
-  }
+  _isGroupedOption = this.props.options.reduce((acc, option) => acc && option.group !== undefined, true)
 
   renderGroupedSelect = () => {
     const { options } = this.props
@@ -44,13 +39,13 @@ class Dropdown extends React.PureComponent {
   }
 
   render () {
-    const { default: defaultValue, label, onChange } = this.props
-    const { isGroupedOption } = this.state
+    const { value, default: defaultValue, label, onChange } = this.props
+
     return (
       <InputTypeContainer>
         <Label>{label}</Label>
-        <Select defaultValue={defaultValue} onChange={onChange}>
-          {isGroupedOption ? this.renderGroupedSelect() : this.renderSelect()}
+        <Select value={value} defaultValue={defaultValue} onChange={onChange}>
+          {this._isGroupedOption ? this.renderGroupedSelect() : this.renderSelect()}
         </Select>
       </InputTypeContainer>
     )

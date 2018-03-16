@@ -56,7 +56,7 @@ class RangeInput extends React.PureComponent {
     super(props)
     this.state = {
       intervalNum: (props.max - props.min) / props.step,
-      value: props.defaultValue,
+      value: props.value || props.defaultValue,
       shouldTrackMouse: false
     }
   }
@@ -100,10 +100,14 @@ class RangeInput extends React.PureComponent {
 
   trackMousePosition = ({ clientX }) => {
     const value = this.getValueFromMousePosition(clientX)
-    this.setState({
-      sliderLeft: this.getSliderLeftFromValue(value),
-      value
-    })
+    this.setState(
+      (state) => ({
+        ...state,
+        sliderLeft: this.getSliderLeftFromValue(value),
+        value
+      }),
+      () => this.props.onChange(value)
+    )
   }
 
   computeStepLength = () => {
@@ -134,10 +138,14 @@ class RangeInput extends React.PureComponent {
     const { min, step } = this.props
     const stepNum = Math.round((e.target.value - min) / step)
     const value = this.getValueFromStepNum(stepNum)
-    this.setState({
-      value,
-      sliderLeft: this.getSliderLeftFromValue(value)
-    })
+    this.setState(
+      (state) => ({
+        ...state,
+        value,
+        sliderLeft: this.getSliderLeftFromValue(value)
+      }),
+      () => this.props.onChange(value)
+    )
   }
 
   render () {
@@ -159,12 +167,13 @@ class RangeInput extends React.PureComponent {
 
 class Range extends React.PureComponent {
   render () {
-    const { label, default: defaultValue, min, max, step, onChange, unit } = this.props
+    const { value, label, default: defaultValue, min, max, step, onChange, unit } = this.props
 
     return (
       <InputTypeContainer>
         <Label>{label}</Label>
         <RangeInput
+          value={value}
           defaultValue={defaultValue}
           onChange={onChange}
           min={min}

@@ -19,11 +19,11 @@ const Input = styled.input`
 
 class Text extends React.PureComponent {
   render () {
-    const { label, default: defaultValue, onChange } = this.props
+    const { label, value, default: defaultValue, onChange } = this.props
     return (
       <InputTypeContainer>
         <Label>{label}</Label>
-        <Input defaultValue={defaultValue} onChange={onChange} />
+        <Input defaultValue={defaultValue} value={value} onChange={onChange} />
       </InputTypeContainer>
     )
   }
