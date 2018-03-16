@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import ErrorBoundary from 'components/shared/ErrorBoundary'
 import Tab from 'components/shared/Tab'
-import SectionSidebar from 'components/section-settings/SectionSidebar'
-import ThemeSettings from 'components/theme-settings/ThemeSettings'
+import SectionSettings from 'components/section-settings'
+import ThemeSettings from 'components/theme-settings'
 import { STORE_KEY } from './constants'
 import * as actions from './actions'
 import { initialState, reducers } from './reducers'
@@ -31,7 +31,7 @@ class CustomisationSidebar extends React.PureComponent {
                 case 'Theme':
                   return <ThemeSettings schema={themeSettingSchema} data={themeSettingData} changeThemeSettingsAction={changeThemeSettingsAction} />
                 default:
-                  return <SectionSidebar schema={sectionSettingSchema} data={sectionSettingData} />
+                  return <SectionSettings schema={sectionSettingSchema} data={sectionSettingData} />
               }
             }}
           </Tab>

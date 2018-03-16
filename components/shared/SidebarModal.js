@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import Portal from 'components/shared/Portal'
 
 const SidebarModalContainer = styled.div`
+  position: absolute;
+  top: 0;
   height: 100vh;
   width: 300px;
   background-color: #ccc;

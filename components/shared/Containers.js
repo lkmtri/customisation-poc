@@ -10,3 +10,5 @@ export const InputTypeContainer = styled.div`
   background-color: #999;
   padding: 0 10px 10px 10px;
 `
+
+export const AdvancedInputTypeContainer = styled.div``

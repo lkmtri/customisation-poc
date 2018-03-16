@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import SidebarModal from 'components/shared/SidebarModal'
-import ThemeSettingType from 'components/theme-settings/ThemeSettingType'
+import InputTypeComponents from 'components/input-types'
 
 const Container = styled.div`
   margin-top: 10px;
@@ -27,7 +27,7 @@ const SettingType = styled.div`
   }
 `
 
-class GeneralSettingSidebar extends React.PureComponent {
+class ThemeSettings extends React.PureComponent {
   state = {
     showSettingType: false
   }
@@ -47,7 +47,10 @@ class GeneralSettingSidebar extends React.PureComponent {
         {schema.map(({ settings, name }) => <SettingType key={name} onClick={this.openSettingType({ settings, name })} settings={settings}>{name}</SettingType>)}
         {showSettingType && (
           <SidebarModal title={settingType.name} onClose={this.closeSettingType}>
-            <ThemeSettingType changeThemeSettingsAction={changeThemeSettingsAction} settings={settingType.settings} data={data} />
+            {settingType.settings.map((setting, idx) => {
+              const InputComponent = InputTypeComponents[setting.type]
+              return <InputComponent key={idx} value={data[setting.id]} changeThemeSettingsAction={changeThemeSettingsAction} {...setting} />
+            })}
           </SidebarModal>
         )}
       </Container>
@@ -55,4 +58,4 @@ class GeneralSettingSidebar extends React.PureComponent {
   }
 }
 
-export default GeneralSettingSidebar
+export default ThemeSettings
