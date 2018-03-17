@@ -22,8 +22,8 @@ class CustomisationSidebar extends React.PureComponent {
 
   render () {
     const { themeSettingSchema, themeSettingData, updateThemeSettingsAction } = this.props
-    console.log(this.props)
     const { sectionSettingSchema, sectionSettingData, updateSectionSettingsAction, updateSectionContentAction } = this.props
+
     return (
       <ErrorBoundary>
         <CustomisationSidebarContainer>

@@ -1,4 +1,4 @@
-export const STORE_KEY = '@@customisationSettings'
+export const STORE_KEY = '@@customisation'
 export const LOAD_THEME = `${STORE_KEY}/LOAD_THEME`
 export const UPDATE_THEME_SETTINGS = `${STORE_KEY}/CHANGE_THEME_SETTINGS`
 export const UPDATE_SECTIONS_SETTINGS = `${STORE_KEY}/UPDATE_SECTIONS_SETTINGS`

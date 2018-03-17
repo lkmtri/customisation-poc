@@ -25,7 +25,7 @@ class FrameConnector extends React.PureComponent {
 
   componentWillReceiveProps (nextProps) {
     const { currentAction } = nextProps
-    currentAction.shouldUpdateFrame && this.pushUpdateToPreviewFrame(currentAction.payload)
+    currentAction.shouldUpdateFrame && this.pushUpdateToPreviewFrame(currentAction)
   }
 
   pushUpdateToPreviewFrame = (update) => {
