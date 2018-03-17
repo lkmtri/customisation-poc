@@ -22,6 +22,7 @@ class CustomisationSidebar extends React.PureComponent {
 
   render () {
     const { themeSettingSchema, themeSettingData, updateThemeSettingsAction } = this.props
+    console.log(this.props)
     const { sectionSettingSchema, sectionSettingData, updateSectionSettingsAction, updateSectionContentAction } = this.props
     return (
       <ErrorBoundary>
@@ -55,9 +56,7 @@ class CustomisationSidebar extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({
-  ...state[STORE_KEY]
-})
+const mapStateToProps = (state) => state[STORE_KEY].toJS()
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)
 
