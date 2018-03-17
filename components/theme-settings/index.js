@@ -39,7 +39,7 @@ class ThemeSettings extends React.PureComponent {
   closeSettingType = () => this.setState({ showSettingType: false })
 
   render () {
-    const { changeThemeSettingsAction, schema, data } = this.props
+    const { updateThemeSettingsAction, schema, data } = this.props
     const { showSettingType, settingType } = this.state
 
     return (
@@ -49,7 +49,7 @@ class ThemeSettings extends React.PureComponent {
           <SidebarModal title={settingType.name} onClose={this.closeSettingType}>
             {settingType.settings.map((setting, idx) => {
               const InputComponent = InputTypeComponents[setting.type]
-              return <InputComponent key={idx} value={data[setting.id]} changeThemeSettingsAction={changeThemeSettingsAction} {...setting} />
+              return <InputComponent key={idx} value={data[setting.id]} onChangeAction={updateThemeSettingsAction} {...setting} />
             })}
           </SidebarModal>
         )}

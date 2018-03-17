@@ -22,10 +22,15 @@ class ContentInput extends React.PureComponent {
     this.setState({ showContentInputSettings: !this.state.showContentInputSettings })
   }
 
+  updateSectionContent = ({ key, value }) => {
+    const { sectionId, blockId, updateSectionContentAction } = this.props
+    updateSectionContentAction({ sectionId, blockId, key, value })
+  }
+
   render () {
-    const { schema, data } = this.props
+    const { sectionId, blockId, schema, data } = this.props
     const { showContentInputSettings } = this.state
-    console.log(showContentInputSettings, schema, data)
+
     return (
       <React.Fragment>
         <Container onClick={this.toggleContentInputSettings}>
@@ -34,7 +39,7 @@ class ContentInput extends React.PureComponent {
         {showContentInputSettings &&
           schema.settings.map((input) => {
             const InputTypeComponent = InputTypeComponents[input.type]
-            return <InputTypeComponent key={input.id} value={data.settings && data.settings[input.id]} {...input} />
+            return <InputTypeComponent onChangeAction={this.updateSectionContent} sectionId={sectionId} blockId={blockId} key={input.id} value={data.settings && data.settings[input.id]} {...input} />
           })}
       </React.Fragment>
     )

@@ -2,13 +2,13 @@ import React from 'react'
 
 const createBasicInputType = (InputComponent) => class BasicInputType extends React.PureComponent {
   static defaultProps = {
-    changeThemeSettingsAction: () => {}
+    onChangeAction: () => {}
   }
 
   handleOnChange = (e) => {
-    const { id, changeThemeSettingsAction } = this.props
+    const { id, onChangeAction } = this.props
     const value = e.target ? e.target.value : e
-    changeThemeSettingsAction({ key: id, value })
+    onChangeAction({ key: id, value })
   }
 
   render () {

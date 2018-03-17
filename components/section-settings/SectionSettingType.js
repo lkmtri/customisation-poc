@@ -22,41 +22,42 @@ const SectionHeading = styled.div`
 
 class SectionSettingsInput extends React.PureComponent {
   static defaultProps = {
-    presets: {},
+    schema: {},
     data: {}
   }
 
-  state = {
-    showBlockSettings: false
-  }
-
-  showBlockSettings = (blockToShow) => { this.setState({ showBlockSettings: true, blockToShow }) }
-
-  hideBlockSettings = (e) => {
-    e.stopPropagation()
-    this.setState({ showBlockSettings: false })
+  updateSectionSettings = ({ key, value }) => {
+    const { sectionId, updateSectionSettingsAction } = this.props
+    updateSectionSettingsAction({ sectionId, key, value })
   }
 
   render () {
-    const { schema, data } = this.props
-    const { settings = [], blocks = [], presets = {} } = schema
-    const { settings: settingsData = {}, blocks: blocksData = [] } = data
-    const currentBlocks = (blocksData.length !== 0 ? blocksData : presets.blocks) || []
+    const { sectionId, schema, data, updateSectionContentAction } = this.props
+    const { settings = [], blocks = [] } = schema
+    const { settings: settingsData = {}, blocks: blocksData = {}, blocksOrder = [] } = data
 
     return (
       <React.Fragment>
         <SectionHeading>Settings</SectionHeading>
         {settings.map((settingInput) => {
           const InputTypeComponent = InputTypeComponents[settingInput.type]
-          return <InputTypeComponent value={settingsData[settingInput.id]} {...settingInput} />
+          return <InputTypeComponent onChangeAction={this.updateSectionSettings} sectionId={sectionId} value={settingsData[settingInput.id]} {...settingInput} />
         })}
-        {currentBlocks.length > 0 && (
+        {blocksOrder.length > 0 && (
           <React.Fragment>
             <SectionHeading>Content</SectionHeading>
-            {currentBlocks.map((block) => {
-              const blockSchema = blocks.find(el => el.type === block.type)
-              const blockData = blocksData.length !== 0 ? block : {}
-              return <ContentInput key={blockData.id || blockSchema.type} schema={blockSchema} data={blockData} />
+            {blocksOrder.map((blockId) => {
+              const blockData = blocksData[blockId]
+              const blockSchema = blocks.find(el => el.type === blockData.type)
+              return (
+                <ContentInput
+                  sectionId={sectionId}
+                  blockId={blockId}
+                  key={blockId}
+                  schema={blockSchema}
+                  data={blockData}
+                  updateSectionContentAction={updateSectionContentAction} />
+              )
             })}
           </React.Fragment>
         )}
@@ -80,7 +81,7 @@ class SectionSettingType extends React.PureComponent {
   }
 
   render () {
-    const { schema, data } = this.props
+    const { sectionId, schema, data, updateSectionSettingsAction, updateSectionContentAction } = this.props
     const { showSectionSettings } = this.state
 
     return (
@@ -88,7 +89,12 @@ class SectionSettingType extends React.PureComponent {
         {schema.name}
         {showSectionSettings && (
           <SidebarModal title={schema.name} onClose={this.hideSectionSettings}>
-            <SectionSettingsInput schema={schema} data={data} />
+            <SectionSettingsInput
+              sectionId={sectionId}
+              schema={schema}
+              data={data}
+              updateSectionSettingsAction={updateSectionSettingsAction}
+              updateSectionContentAction={updateSectionContentAction} />
           </SidebarModal>
         )}
       </Container>

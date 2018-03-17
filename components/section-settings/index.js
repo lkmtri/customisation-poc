@@ -13,14 +13,23 @@ class SectionSidebar extends React.PureComponent {
   }
 
   render () {
-    const { page, schema, data } = this.props
+    const { page, schema, data, updateSectionSettingsAction, updateSectionContentAction } = this.props
 
     return (
       <Container>
-        {data.pages && data.pages[page].map((section) => {
-          const sectionData = data.sections[section]
+        {data.pages && data.pages[page].map((sectionId) => {
+          const sectionData = data.sections[sectionId]
           const sectionSchema = schema.find(_sectionSchema => _sectionSchema.type === sectionData.type)
-          return <SectionSettingType key={section} schema={sectionSchema} data={sectionData} />
+          return (
+            <SectionSettingType
+              key={sectionId}
+              sectionId={sectionId}
+              schema={sectionSchema}
+              data={sectionData}
+              updateSectionSettingsAction={updateSectionSettingsAction}
+              updateSectionContentAction={updateSectionContentAction}
+            />
+          )
         })}
       </Container>
     )

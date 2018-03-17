@@ -24,6 +24,12 @@ const TitleContainer = styled.div`
   align-items: center;
 `
 
+const BodyContainer = styled.div`
+  overflow-y: scroll;
+  max-height: calc(100% - 50px);
+  padding-bottom: 10px;
+`
+
 const CloseButton = styled.div`
   width: 50px;
   height: 50px;
@@ -47,7 +53,9 @@ class SidebarModal extends React.PureComponent {
             <CloseButton onClick={onClose}>{'<'}</CloseButton>
             <TitleContainer>{title}</TitleContainer>
           </HeaderContainer>
-          {children}
+          <BodyContainer>
+            {children}
+          </BodyContainer>
         </SidebarModalContainer>
       </Portal>
     )
