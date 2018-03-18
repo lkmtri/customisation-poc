@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import SectionSettingType from 'components/section-settings/SectionSettingType'
+import { arrayMove } from 'react-sortable-hoc'
+import SectionSettingType, { SortableSectionSettingTypeList } from 'components/section-settings/SectionSettingType'
 
 const Container = styled.div`
   height: 100%;
@@ -12,25 +13,44 @@ class SectionSidebar extends React.PureComponent {
     page: 'index'
   }
 
+  reorderSections = ({ oldIndex, newIndex }) => {
+    const { page, data, reorderSectionsAction } = this.props
+    const nextSectionsOrder = arrayMove(data.pages[page], oldIndex, newIndex)
+    reorderSectionsAction({ page, nextSectionsOrder })
+  }
+
   render () {
     const { page, schema, data, updateSectionSettingsAction, updateSectionContentAction } = this.props
+    const headerSchema = schema.find(sectionSchema => sectionSchema.type === 'header')
+    const footerSchema = schema.find(sectionSchema => sectionSchema.type === 'footer')
 
     return (
       <Container>
-        {data.pages && data.pages[page].map((sectionId) => {
-          const sectionData = data.sections[sectionId]
-          const sectionSchema = schema.find(_sectionSchema => _sectionSchema.type === sectionData.type)
-          return (
+        {data.sections && (
+          <React.Fragment>
             <SectionSettingType
-              key={sectionId}
-              sectionId={sectionId}
-              schema={sectionSchema}
-              data={sectionData}
+              sectionId={'header'}
+              schema={headerSchema}
+              data={data.sections.header}
+              updateSectionSettingsAction={updateSectionSettingsAction}
+              updateSectionContentAction={updateSectionContentAction} />
+            <SortableSectionSettingTypeList
+              page={page}
+              schema={schema}
+              data={data}
               updateSectionSettingsAction={updateSectionSettingsAction}
               updateSectionContentAction={updateSectionContentAction}
-            />
-          )
-        })}
+              onSortEnd={this.reorderSections}
+              lockAxis='y'
+              useDragHandle />
+            <SectionSettingType
+              sectionId={'footer'}
+              schema={footerSchema}
+              data={data.sections.footer}
+              updateSectionSettingsAction={updateSectionSettingsAction}
+              updateSectionContentAction={updateSectionContentAction} />
+          </React.Fragment>
+        )}
       </Container>
     )
   }

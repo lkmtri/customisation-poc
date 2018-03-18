@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc'
 import SidebarModal from 'components/shared/SidebarModal'
 import InputTypeComponents from 'components/input-types'
 import ContentInput from 'components/section-settings/ContentInput'
@@ -8,6 +9,7 @@ const Container = styled.div`
   margin-top: 10px;
   height: 50px;
   display: flex;
+  justify-content: space-between;
   padding: 10px;
   align-items: center;
   background-color: #999;
@@ -18,6 +20,18 @@ const Container = styled.div`
 const SectionHeading = styled.div`
   padding: 10px;
   font-weight: bold;
+`
+
+const SortableList = styled.ul`
+  padding: 0;
+  & > ${Container}+${Container} {
+    margin-top: 0;
+    border-top: 1px #ccc solid;
+  }
+`
+
+const DragHandlerContainer = styled.span`
+  cursor: grab;
 `
 
 class SectionSettingsInput extends React.PureComponent {
@@ -81,12 +95,13 @@ class SectionSettingType extends React.PureComponent {
   }
 
   render () {
-    const { sectionId, schema, data, updateSectionSettingsAction, updateSectionContentAction } = this.props
+    const { sectionId, schema, data, updateSectionSettingsAction, updateSectionContentAction, DragHandlerComponent } = this.props
     const { showSectionSettings } = this.state
 
     return (
       <Container onClick={this.showSectionSettings}>
         {schema.name}
+        {DragHandlerComponent && <DragHandlerComponent />}
         {showSectionSettings && (
           <SidebarModal title={schema.name} onClose={this.hideSectionSettings}>
             <SectionSettingsInput
@@ -101,5 +116,30 @@ class SectionSettingType extends React.PureComponent {
     )
   }
 }
+
+const DragHandler = SortableHandle(() => <DragHandlerContainer>::</DragHandlerContainer>)
+
+const SortableSectionSettingType = SortableElement((props) => <SectionSettingType {...props} DragHandlerComponent={DragHandler} />)
+
+export const SortableSectionSettingTypeList = SortableContainer(
+  ({ page = 'index', schema, data, updateSectionSettingsAction, updateSectionContentAction }) => (
+    <SortableList>
+      {data.pages[page].map((sectionId, index) => {
+        const sectionData = data.sections[sectionId]
+        const sectionSchema = schema.find(_sectionSchema => _sectionSchema.type === sectionData.type)
+        return (
+          <SortableSectionSettingType
+            index={index}
+            key={sectionId}
+            sectionId={sectionId}
+            schema={sectionSchema}
+            data={sectionData}
+            updateSectionSettingsAction={updateSectionSettingsAction}
+            updateSectionContentAction={updateSectionContentAction} />
+        )
+      })}
+    </SortableList>
+  )
+)
 
 export default SectionSettingType
