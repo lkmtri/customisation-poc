@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable'
-import { LOAD_THEME, UPDATE_THEME_SETTINGS, UPDATE_SECTIONS_SETTINGS, UPDATE_SECTIONS_CONTENT, REORDER_SECTIONS } from './constants'
+import { LOAD_THEME, UPDATE_THEME_SETTINGS, UPDATE_SECTIONS_SETTINGS, UPDATE_SECTIONS_CONTENT, REORDER_SECTIONS, REORDER_BLOCKS } from './constants'
 
 export const initialState = fromJS({
   themeSettingSchema: [],
@@ -34,6 +34,11 @@ export const reducers = (state = initialState, action) => {
       return state.setIn(
         ['sectionSettingData', 'pages', action.payload.page],
         fromJS(action.payload.nextSectionsOrder)
+      )
+    case REORDER_BLOCKS:
+      return state.setIn(
+        ['sectionSettingData', 'sections', action.payload.sectionId, 'blocksOrder'],
+        fromJS(action.payload.nextBlocksOrder)
       )
     default:
       return state

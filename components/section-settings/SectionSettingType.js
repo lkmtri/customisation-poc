@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc'
+import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'react-sortable-hoc'
 import SidebarModal from 'components/shared/SidebarModal'
 import InputTypeComponents from 'components/input-types'
-import ContentInput from 'components/section-settings/ContentInput'
+import { SortableContentInputList } from 'components/section-settings/ContentInput'
 
 const Container = styled.div`
   margin-top: 10px;
@@ -45,6 +45,12 @@ class SectionSettingsInput extends React.PureComponent {
     updateSectionSettingsAction({ sectionId, key, value })
   }
 
+  reorderBlocks = ({ oldIndex, newIndex }) => {
+    const { sectionId, data, reorderBlocksAction } = this.props
+    const nextBlocksOrder = arrayMove(data.blocksOrder, oldIndex, newIndex)
+    reorderBlocksAction({ sectionId, nextBlocksOrder })
+  }
+
   render () {
     const { sectionId, schema, data, updateSectionContentAction } = this.props
     const { settings = [], blocks = [] } = schema
@@ -60,19 +66,15 @@ class SectionSettingsInput extends React.PureComponent {
         {blocksOrder.length > 0 && (
           <React.Fragment>
             <SectionHeading>Content</SectionHeading>
-            {blocksOrder.map((blockId) => {
-              const blockData = blocksData[blockId]
-              const blockSchema = blocks.find(el => el.type === blockData.type)
-              return (
-                <ContentInput
-                  sectionId={sectionId}
-                  blockId={blockId}
-                  key={blockId}
-                  schema={blockSchema}
-                  data={blockData}
-                  updateSectionContentAction={updateSectionContentAction} />
-              )
-            })}
+            <SortableContentInputList
+              blocksOrder={blocksOrder}
+              blocksData={blocksData}
+              blocks={blocks}
+              sectionId={sectionId}
+              updateSectionContentAction={updateSectionContentAction}
+              lockAxis='y'
+              useDragHandle
+              onSortEnd={this.reorderBlocks} />
           </React.Fragment>
         )}
       </React.Fragment>
@@ -95,7 +97,7 @@ class SectionSettingType extends React.PureComponent {
   }
 
   render () {
-    const { sectionId, schema, data, updateSectionSettingsAction, updateSectionContentAction, DragHandlerComponent } = this.props
+    const { sectionId, schema, data, updateSectionSettingsAction, updateSectionContentAction, reorderBlocksAction, DragHandlerComponent } = this.props
     const { showSectionSettings } = this.state
 
     return (
@@ -109,7 +111,8 @@ class SectionSettingType extends React.PureComponent {
               schema={schema}
               data={data}
               updateSectionSettingsAction={updateSectionSettingsAction}
-              updateSectionContentAction={updateSectionContentAction} />
+              updateSectionContentAction={updateSectionContentAction}
+              reorderBlocksAction={reorderBlocksAction} />
           </SidebarModal>
         )}
       </Container>
@@ -122,7 +125,7 @@ const DragHandler = SortableHandle(() => <DragHandlerContainer>::</DragHandlerCo
 const SortableSectionSettingType = SortableElement((props) => <SectionSettingType {...props} DragHandlerComponent={DragHandler} />)
 
 export const SortableSectionSettingTypeList = SortableContainer(
-  ({ page = 'index', schema, data, updateSectionSettingsAction, updateSectionContentAction }) => (
+  ({ page = 'index', schema, data, updateSectionSettingsAction, updateSectionContentAction, reorderBlocksAction }) => (
     <SortableList>
       {data.pages[page].map((sectionId, index) => {
         const sectionData = data.sections[sectionId]
@@ -135,7 +138,8 @@ export const SortableSectionSettingTypeList = SortableContainer(
             schema={sectionSchema}
             data={sectionData}
             updateSectionSettingsAction={updateSectionSettingsAction}
-            updateSectionContentAction={updateSectionContentAction} />
+            updateSectionContentAction={updateSectionContentAction}
+            reorderBlocksAction={reorderBlocksAction} />
         )
       })}
     </SortableList>

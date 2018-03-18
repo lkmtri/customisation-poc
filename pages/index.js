@@ -13,7 +13,7 @@ const PageContainer = styled.div`
 `
 
 const PortalContainer = styled.div`
-  z-index: 1;
+  z-index: 0;
   position: fixed;
   top: 0;
   left: 0;
