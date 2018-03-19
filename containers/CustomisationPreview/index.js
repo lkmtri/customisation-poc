@@ -91,7 +91,7 @@ class CustomisationPreview extends React.PureComponent {
   }
 
   render () {
-    const { frameUrl } = this.props
+    const { frameUrl, currentFrameUrl } = this.props
     const { mode } = this.state
 
     return (
@@ -100,6 +100,9 @@ class CustomisationPreview extends React.PureComponent {
           <PreviewActionGroup>
             <PreviewActionItem onClick={this.setPreviewMode(previewMode.mobile)}>Mobile</PreviewActionItem>
             <PreviewActionItem onClick={this.setPreviewMode(previewMode.desktop)}>Desktop</PreviewActionItem>
+          </PreviewActionGroup>
+          <PreviewActionGroup>
+            {currentFrameUrl}
           </PreviewActionGroup>
         </PreviewActions>
         <FrameContainer >
@@ -110,6 +113,8 @@ class CustomisationPreview extends React.PureComponent {
   }
 }
 
+const mapStateToProps = (state) => ({ ...state[STORE_KEY] })
+
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch)
 
-export default connect(null, mapDispatchToProps)(CustomisationPreview)
+export default connect(mapStateToProps, mapDispatchToProps)(CustomisationPreview)

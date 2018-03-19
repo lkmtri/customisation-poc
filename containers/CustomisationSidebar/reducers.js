@@ -2,6 +2,7 @@ import { fromJS } from 'immutable'
 import { LOAD_THEME, UPDATE_THEME_SETTINGS, UPDATE_SECTIONS_SETTINGS, UPDATE_SECTIONS_CONTENT, REORDER_SECTIONS, REORDER_BLOCKS } from './constants'
 
 export const initialState = fromJS({
+  isThemeLoaded: false,
   themeSettingSchema: [],
   themeSettingData: {},
   sectionSettingSchema: [],
@@ -12,7 +13,8 @@ export const reducers = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_THEME:
       const { themeSettingData, themeSettingSchema, sectionSettingData, sectionSettingSchema } = action.payload
-      return state
+      return state.get('isThemeLoaded') ? state : state
+        .set('isThemeLoaded', true)
         .set('themeSettingSchema', fromJS(themeSettingSchema))
         .set('themeSettingData', fromJS(themeSettingData))
         .set('sectionSettingSchema', fromJS(sectionSettingSchema))

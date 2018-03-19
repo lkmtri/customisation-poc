@@ -6,6 +6,7 @@ import ErrorBoundary from 'components/shared/ErrorBoundary'
 import Tab from 'components/shared/Tab'
 import SectionSettings from 'components/section-settings'
 import ThemeSettings from 'components/theme-settings'
+import { STORE_KEY as PREVIEW_STORE_KEY } from 'containers/CustomisationPreview/constants'
 import { STORE_KEY } from './constants'
 import * as actions from './actions'
 import { initialState, reducers } from './reducers'
@@ -21,6 +22,7 @@ class CustomisationSidebar extends React.PureComponent {
   static getReducers = () => ({ [STORE_KEY]: reducers })
 
   render () {
+    const { currentFrameUrl } = this.props
     const { themeSettingSchema, themeSettingData, updateThemeSettingsAction } = this.props
     const { sectionSettingSchema, sectionSettingData, updateSectionSettingsAction, updateSectionContentAction, reorderSectionsAction, reorderBlocksAction } = this.props
 
@@ -41,6 +43,7 @@ class CustomisationSidebar extends React.PureComponent {
                 default:
                   return (
                     <SectionSettings
+                      page={currentFrameUrl}
                       schema={sectionSettingSchema}
                       data={sectionSettingData}
                       updateSectionSettingsAction={updateSectionSettingsAction}
@@ -58,7 +61,10 @@ class CustomisationSidebar extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state) => state[STORE_KEY].toJS()
+const mapStateToProps = (state) => ({
+  ...state[STORE_KEY].toJS(),
+  ...state[PREVIEW_STORE_KEY]
+})
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)
 

@@ -1,10 +1,7 @@
 import React from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { STORE_KEY as OWN_STORE_KEY } from './constants'
 import { STORE_KEY as PREVIEW_FRAME_STORE_KEY } from 'containers/CustomisationPreview/constants'
-import { loadTheme } from 'containers/CustomisationSidebar/actions'
-import * as actions from './actions'
 import { initialState, reducers } from './reducers'
 
 class FrameConnector extends React.PureComponent {
@@ -14,10 +11,10 @@ class FrameConnector extends React.PureComponent {
 
   componentDidMount () {
     if (window !== undefined) {
-      const { loadTheme } = this.props
+      const { dispatch } = this.props
       window.addEventListener('message', function (event) {
         if (event.origin === 'http://localhost:3001') {
-          loadTheme(event.data)
+          dispatch(event.data)
         }
       })
     }
@@ -49,9 +46,4 @@ const mapStateToProps = (state) => ({
   ...state[PREVIEW_FRAME_STORE_KEY]
 })
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  ...actions,
-  loadTheme
-}, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(FrameConnector)
+export default connect(mapStateToProps)(FrameConnector)
