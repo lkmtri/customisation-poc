@@ -29,6 +29,7 @@ const PreviewActions = styled.div`
 const PreviewActionGroup = styled.div`
   display: flex;  
   height: 100%;
+  padding: 0 10px;
   align-items: center;
 `
 
@@ -98,11 +99,14 @@ class CustomisationPreview extends React.PureComponent {
       <Container>
         <PreviewActions>
           <PreviewActionGroup>
+            {currentFrameUrl}
+          </PreviewActionGroup>
+          <PreviewActionGroup>
             <PreviewActionItem onClick={this.setPreviewMode(previewMode.mobile)}>Mobile</PreviewActionItem>
             <PreviewActionItem onClick={this.setPreviewMode(previewMode.desktop)}>Desktop</PreviewActionItem>
           </PreviewActionGroup>
           <PreviewActionGroup>
-            {currentFrameUrl}
+            Save
           </PreviewActionGroup>
         </PreviewActions>
         <FrameContainer >
