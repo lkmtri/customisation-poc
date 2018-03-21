@@ -67,7 +67,7 @@ class CustomisationSidebar extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  ...state[STORE_KEY].toJS(),
+  ...state[STORE_KEY],
   ...state[PREVIEW_STORE_KEY]
 })
 
