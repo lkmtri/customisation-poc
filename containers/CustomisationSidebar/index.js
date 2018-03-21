@@ -9,7 +9,7 @@ import ThemeSettings from 'components/theme-settings'
 import { STORE_KEY as PREVIEW_STORE_KEY } from 'containers/CustomisationPreview/constants'
 import { STORE_KEY } from './constants'
 import * as actions from './actions'
-import { initialState, reducers } from './reducers'
+import { reducers } from './reducers'
 
 const CustomisationSidebarContainer = styled.div`
   background-color: #ccc;
@@ -20,9 +20,9 @@ class CustomisationSidebar extends React.PureComponent {
   static async getInitialProps (context) {
     const { store } = context
     await store.dispatch(actions.getPreviewTokenAction({ merchantId: '12345' }))
+    const state = store.getState()
+    console.log(state[STORE_KEY])
   }
-
-  static getInitialState = () => ({ [STORE_KEY]: initialState })
 
   static getReducers = () => ({ [STORE_KEY]: reducers })
 

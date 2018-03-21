@@ -24,12 +24,6 @@ class Index extends React.PureComponent {
     typeof CustomisationSidebar.getInitialProps === 'function' && await CustomisationSidebar.getInitialProps(context)
   }
 
-  static getInitialState = () => ({
-    ...CustomisationSidebar.getInitialState(),
-    ...CustomisationPreview.getInitialState(),
-    ...FrameConnector.getInitialState()
-  })
-
   static getReducers = () => ({
     ...CustomisationSidebar.getReducers(),
     ...CustomisationPreview.getReducers(),

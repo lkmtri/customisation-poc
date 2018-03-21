@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { initialState, reducers } from './reducers'
+import { reducers } from './reducers'
 import * as actions from './actions'
 import { STORE_KEY } from './constants'
 
@@ -57,8 +57,6 @@ class CustomisationPreview extends React.PureComponent {
   static defaultProps = {
     frameUrl: 'http://localhost:3001?preview=0'
   }
-
-  static getInitialState = () => ({ [STORE_KEY]: initialState })
 
   static getReducers = () => ({ [STORE_KEY]: reducers })
 

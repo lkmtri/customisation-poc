@@ -9,6 +9,6 @@ const middlewares = composeWithDevTools(applyMiddleware(
   loggerMiddlewares
 ))
 
-export default (wrappedComponent, reducers, initialState) => withRedux(
-  () => createStore(reducers, initialState, middlewares)
+export default (wrappedComponent, reducers) => withRedux(
+  (initialState) => createStore(reducers, initialState, middlewares)
 )(wrappedComponent)

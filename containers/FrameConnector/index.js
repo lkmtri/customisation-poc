@@ -2,11 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { STORE_KEY as OWN_STORE_KEY } from './constants'
 import { STORE_KEY as PREVIEW_FRAME_STORE_KEY } from 'containers/CustomisationPreview/constants'
-import { initialState, reducers } from './reducers'
+import { reducers } from './reducers'
 
 class FrameConnector extends React.PureComponent {
-  static getInitialState = () => ({ [OWN_STORE_KEY]: initialState })
-
   static getReducers = () => ({ [OWN_STORE_KEY]: reducers })
 
   componentDidMount () {
