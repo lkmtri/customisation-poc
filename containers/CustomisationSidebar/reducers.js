@@ -12,15 +12,6 @@ export const initialState = {
 
 export const reducers = (state = initialState, action = {}) => {
   switch (action.type) {
-    case C.LOAD_THEME:
-      return produce(state, draftState => {
-        const { themeSettingData, themeSettingSchema, sectionSettingData, sectionSettingSchema } = action.payload
-        draftState.isThemeLoaded = true
-        draftState.themeSettingData = themeSettingData
-        draftState.themeSettingSchema = themeSettingSchema
-        draftState.sectionSettingData = sectionSettingData
-        draftState.sectionSettingSchema = sectionSettingSchema
-      })
     case C.UPDATE_THEME_SETTINGS:
       return produce(state, draftState => {
         const { key, value } = action.payload
@@ -48,8 +39,17 @@ export const reducers = (state = initialState, action = {}) => {
       })
     case C.GET_PREVIEW_TOKEN_SUCCESS:
       return produce(state, draftState => {
-        console.log(action.payload)
         draftState.previewToken = action.payload
+      })
+    case C.GET_PREVIEW_THEME_SUCCESS:
+      return produce(state, draftState => {
+        const { themeData, themeSchema } = action.payload
+        draftState.isThemeLoaded = true
+        draftState.themeId = themeData.themeId
+        draftState.themeSettingData = themeData.themeSettings
+        draftState.themeSettingSchema = themeSchema.themeSettingSchema
+        draftState.sectionSettingData = themeData.sectionSettings
+        draftState.sectionSettingSchema = themeSchema.sectionSettingSchema
       })
     case C.GET_PREVIEW_TOKEN_FAILURE:
       return state

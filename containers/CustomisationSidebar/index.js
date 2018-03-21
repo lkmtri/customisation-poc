@@ -20,8 +20,8 @@ class CustomisationSidebar extends React.PureComponent {
   static async getInitialProps (context) {
     const { store } = context
     await store.dispatch(actions.getPreviewTokenAction({ merchantId: '12345' }))
-    const state = store.getState()
-    console.log(state[STORE_KEY])
+    const previewToken = store.getState()[STORE_KEY].previewToken
+    await store.dispatch(actions.getThemeAction({ merchantId: '12345', previewToken }))
   }
 
   static getReducers = () => ({ [STORE_KEY]: reducers })

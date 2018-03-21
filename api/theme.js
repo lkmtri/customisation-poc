@@ -6,8 +6,6 @@ const GET = (url) => axios.get(url)
   .then(({ data }) => data)
   .catch(({ error, errorCode }) => ({ error, errorCode }))
 
-const getPreviewToken = ({ merchantId }) => GET(`${BASE_URL}/preview-token?merchantId=${merchantId}`)
+export const getPreviewToken = ({ merchantId }) => GET(`${BASE_URL}/preview-token?merchantId=${merchantId}`)
 
-export {
-  getPreviewToken
-}
+export const getTheme = ({ merchantId, previewToken }) => GET(`${BASE_URL}/theme-preview?merchantId=${merchantId}&previewToken=${previewToken}`)

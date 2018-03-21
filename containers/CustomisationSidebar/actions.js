@@ -1,5 +1,6 @@
 import { withFrameUpdate, asyncAction } from 'tools/redux/actions'
 import {
+  getTheme,
   getPreviewToken
 } from 'api/theme'
 import * as C from './constants'
@@ -24,11 +25,16 @@ export const reorderBlocksAction = withFrameUpdate(
   ({ sectionId, nextBlocksOrder }) => ({ type: C.REORDER_BLOCKS, payload: { sectionId, nextBlocksOrder } })
 )
 
-export const loadTheme = (payload) => ({ type: C.LOAD_THEME, payload })
-
 export const getPreviewTokenAction = asyncAction({
   api: getPreviewToken,
   requestAction: C.GET_PREVIEW_TOKEN_REQUEST,
   successAction: C.GET_PREVIEW_TOKEN_SUCCESS,
   failureAction: C.GET_PREVIEW_TOKEN_FAILURE
+})
+
+export const getThemeAction = asyncAction({
+  api: getTheme,
+  requestAction: C.GET_PREVIEW_THEME_REQUEST,
+  successAction: C.GET_PREVIEW_THEME_SUCCESS,
+  failureAction: C.GET_PREVIEW_THEME_FAILURE
 })
