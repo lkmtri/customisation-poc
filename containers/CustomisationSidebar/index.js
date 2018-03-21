@@ -17,6 +17,11 @@ const CustomisationSidebarContainer = styled.div`
 `
 
 class CustomisationSidebar extends React.PureComponent {
+  static async getInitialProps (context) {
+    const { store } = context
+    await store.dispatch(actions.getPreviewTokenAction({ merchantId: '12345' }))
+  }
+
   static getInitialState = () => ({ [STORE_KEY]: initialState })
 
   static getReducers = () => ({ [STORE_KEY]: reducers })

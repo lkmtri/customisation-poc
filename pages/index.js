@@ -5,6 +5,7 @@ import CustomisationSidebar from 'containers/CustomisationSidebar'
 import CustomisationPreview from 'containers/CustomisationPreview'
 import FrameConnector from 'containers/FrameConnector'
 import Flex from 'components/shared/Flex'
+import { getPreviewToken } from 'api/theme'
 
 const PageContainer = styled.div`
   height: 100vh;
@@ -21,7 +22,7 @@ const PortalContainer = styled.div`
 
 class Index extends React.PureComponent {
   static async getInitialProps (context) {
-    // TODO: Load Theme here
+    typeof CustomisationSidebar.getInitialProps === 'function' && await CustomisationSidebar.getInitialProps(context)
   }
 
   static getInitialState = () => ({

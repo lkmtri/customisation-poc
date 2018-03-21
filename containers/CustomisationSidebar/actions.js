@@ -1,24 +1,34 @@
-import { withFrameUpdate } from 'tools/redux/actions'
-import { LOAD_THEME, UPDATE_THEME_SETTINGS, UPDATE_SECTIONS_SETTINGS, UPDATE_SECTIONS_CONTENT, REORDER_SECTIONS, REORDER_BLOCKS } from './constants'
+import { withFrameUpdate, asyncAction } from 'tools/redux/actions'
+import {
+  getPreviewToken
+} from 'api/theme'
+import * as C from './constants'
 
 export const updateThemeSettingsAction = withFrameUpdate(
-  ({ key, value }) => ({ type: UPDATE_THEME_SETTINGS, payload: { key, value } })
+  ({ key, value }) => ({ type: C.UPDATE_THEME_SETTINGS, payload: { key, value } })
 )
 
 export const updateSectionSettingsAction = withFrameUpdate(
-  ({ sectionId, key, value }) => ({ type: UPDATE_SECTIONS_SETTINGS, payload: { sectionId, key, value } })
+  ({ sectionId, key, value }) => ({ type: C.UPDATE_SECTIONS_SETTINGS, payload: { sectionId, key, value } })
 )
 
 export const updateSectionContentAction = withFrameUpdate(
-  ({ sectionId, blockId, key, value }) => ({ type: UPDATE_SECTIONS_CONTENT, payload: { sectionId, blockId, key, value } })
+  ({ sectionId, blockId, key, value }) => ({ type: C.UPDATE_SECTIONS_CONTENT, payload: { sectionId, blockId, key, value } })
 )
 
 export const reorderSectionsAction = withFrameUpdate(
-  ({ page, nextSectionsOrder }) => ({ type: REORDER_SECTIONS, payload: { page, nextSectionsOrder } })
+  ({ page, nextSectionsOrder }) => ({ type: C.REORDER_SECTIONS, payload: { page, nextSectionsOrder } })
 )
 
 export const reorderBlocksAction = withFrameUpdate(
-  ({ sectionId, nextBlocksOrder }) => ({ type: REORDER_BLOCKS, payload: { sectionId, nextBlocksOrder } })
+  ({ sectionId, nextBlocksOrder }) => ({ type: C.REORDER_BLOCKS, payload: { sectionId, nextBlocksOrder } })
 )
 
-export const loadTheme = (payload) => ({ type: LOAD_THEME, payload })
+export const loadTheme = (payload) => ({ type: C.LOAD_THEME, payload })
+
+export const getPreviewTokenAction = asyncAction({
+  api: getPreviewToken,
+  requestAction: C.GET_PREVIEW_TOKEN_REQUEST,
+  successAction: C.GET_PREVIEW_TOKEN_SUCCESS,
+  failureAction: C.GET_PREVIEW_TOKEN_FAILURE
+})
