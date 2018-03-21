@@ -40,7 +40,7 @@ export const reducers = (state = initialState, action = {}) => {
       })
     case C.GET_PREVIEW_TOKEN_SUCCESS:
       return produce(state, draftState => {
-        deepUpdate(draftState, ['previewToken'], action.payload)
+        draftState.previewToken = action.payload
       })
     case C.GET_PREVIEW_THEME_SUCCESS:
       return produce(state, draftState => {
