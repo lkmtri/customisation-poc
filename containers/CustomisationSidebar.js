@@ -18,7 +18,7 @@ class CustomisationSidebar extends React.PureComponent {
     const { store } = context
     await store.dispatch(actions[storeKeys.customisation].getPreviewTokenAction({ merchantId: '12345' }))
     const previewToken = store.getState()[storeKeys.customisation].previewToken
-    await store.dispatch(actions[storeKeys.customisation].getThemeAction({ merchantId: '12345', previewToken }))
+    await store.dispatch(actions[storeKeys.customisation].getThemeAction({ previewToken }))
   }
 
   render () {

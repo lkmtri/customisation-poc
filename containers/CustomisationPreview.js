@@ -53,7 +53,7 @@ const Frame = styled.iframe`
 
 class CustomisationPreview extends React.PureComponent {
   static defaultProps = {
-    frameUrl: 'http://localhost:3001?preview=0'
+    frameUrl: 'http://localhost:3001'
   }
 
   state = {
@@ -86,9 +86,8 @@ class CustomisationPreview extends React.PureComponent {
   }
 
   render () {
-    const { frameUrl, currentFrameUrl } = this.props
+    const { previewToken, frameUrl, currentFrameUrl, saveChangesAction } = this.props
     const { mode } = this.state
-
     return (
       <Container>
         <PreviewActions>
@@ -100,21 +99,25 @@ class CustomisationPreview extends React.PureComponent {
             <PreviewActionItem onClick={this.setPreviewMode(previewMode.desktop)}>Desktop</PreviewActionItem>
           </PreviewActionGroup>
           <PreviewActionGroup>
-            Save
+            <PreviewActionItem onClick={saveChangesAction}>Save</PreviewActionItem>
           </PreviewActionGroup>
         </PreviewActions>
         <FrameContainer >
-          <Frame id='preview-frame' previewMode={mode} src={frameUrl} sandbox='allow-forms allow-scripts allow-same-origin allow-popups' />
+          {previewToken && <Frame id='preview-frame' previewMode={mode} src={`${frameUrl}?preview=${previewToken}`} sandbox='allow-forms allow-scripts allow-same-origin allow-popups' />}
         </FrameContainer>
       </Container>
     )
   }
 }
 
-const mapStateToProps = (state) => ({ ...state[storeKeys.frame] })
+const mapStateToProps = (state) => ({
+  previewToken: state[storeKeys.customisation].previewToken,
+  ...state[storeKeys.frame]
+})
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  ...actions[storeKeys.frame]
+  ...actions[storeKeys.frame],
+  ...actions[storeKeys.customisation]
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomisationPreview)

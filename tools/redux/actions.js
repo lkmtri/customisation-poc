@@ -15,8 +15,9 @@ export const asyncAction = ({
   successAction,
   failureAction,
   shouldHandleRaceCondition = false
-}) => (requestPayload) => async (dispatch) => {
+}) => (_requestPayload) => async (dispatch, getState) => {
   dispatch({ ...getAction(requestAction) })
+  const requestPayload = typeof _requestPayload === 'function' ? _requestPayload(getState) : _requestPayload
   const payload = await api(requestPayload)
   const timestamp = new Date()
   if (payload.error) {

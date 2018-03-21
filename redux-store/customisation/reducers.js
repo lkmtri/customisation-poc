@@ -3,7 +3,6 @@ import { deepUpdate } from 'tools/object'
 import * as C from './constants'
 
 export const initialState = {
-  previewToken: '',
   isThemeLoaded: false,
   themeSettingSchema: [],
   themeSettingData: {},

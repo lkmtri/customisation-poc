@@ -1,7 +1,8 @@
 import { withFrameUpdate, asyncAction } from 'tools/redux/actions'
 import {
-  getTheme,
-  getPreviewToken
+  loadPreviewTheme,
+  getPreviewToken,
+  saveChanges
 } from 'api/theme'
 import * as C from './constants'
 
@@ -33,8 +34,19 @@ export const getPreviewTokenAction = asyncAction({
 })
 
 export const getThemeAction = asyncAction({
-  api: getTheme,
+  api: loadPreviewTheme,
   requestAction: C.GET_PREVIEW_THEME_REQUEST,
   successAction: C.GET_PREVIEW_THEME_SUCCESS,
   failureAction: C.GET_PREVIEW_THEME_FAILURE
+})
+
+export const saveChangesAction = () => asyncAction({
+  api: saveChanges,
+  requestAction: C.SAVE_CHANGES_REQUEST,
+  successAction: C.SAVE_CHANGES_SUCCESS,
+  failureAction: C.SAVE_CHANGES_FAILURE
+})((getState) => {
+  const state = getState()[C.STORE_KEY]
+  const { previewToken, themeSettingData: themeSettings, sectionSettingData: sectionSettings } = state
+  return { previewToken, themeSettings, sectionSettings }
 })
