@@ -20,6 +20,10 @@ const PortalContainer = styled.div`
 `
 
 class Index extends React.PureComponent {
+  static async getInitialProps (context) {
+    // TODO: Load Theme here
+  }
+
   static getInitialState = () => ({
     ...CustomisationSidebar.getInitialState(),
     ...CustomisationPreview.getInitialState(),

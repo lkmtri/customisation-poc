@@ -55,7 +55,7 @@ const Frame = styled.iframe`
 
 class CustomisationPreview extends React.PureComponent {
   static defaultProps = {
-    frameUrl: 'http://localhost:3001'
+    frameUrl: 'http://localhost:3001?preview=0'
   }
 
   static getInitialState = () => ({ [STORE_KEY]: initialState })

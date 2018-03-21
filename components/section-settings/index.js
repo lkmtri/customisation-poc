@@ -19,8 +19,6 @@ class SectionSidebar extends React.PureComponent {
     reorderSectionsAction({ page, nextSectionsOrder })
   }
 
-  onSortMove = console.log
-
   render () {
     const { page, schema, data, updateSectionSettingsAction, updateSectionContentAction, reorderBlocksAction } = this.props
     const headerSchema = schema.find(sectionSchema => sectionSchema.type === 'header')
@@ -44,7 +42,6 @@ class SectionSidebar extends React.PureComponent {
               updateSectionContentAction={updateSectionContentAction}
               reorderBlocksAction={reorderBlocksAction}
               onSortEnd={this.reorderSections}
-              onSortMove={console.log}
               lockAxis='y'
               useDragHandle />
             <SectionSettingType
