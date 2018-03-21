@@ -1,12 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { STORE_KEY as OWN_STORE_KEY } from './constants'
-import { STORE_KEY as PREVIEW_FRAME_STORE_KEY } from 'containers/CustomisationPreview/constants'
-import { reducers } from './reducers'
+import { storeKeys } from 'redux-store'
 
 class FrameConnector extends React.PureComponent {
-  static getReducers = () => ({ [OWN_STORE_KEY]: reducers })
-
   componentDidMount () {
     if (window !== undefined) {
       const { dispatch } = this.props
@@ -40,8 +36,8 @@ class FrameConnector extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  ...state[OWN_STORE_KEY],
-  ...state[PREVIEW_FRAME_STORE_KEY]
+  ...state[storeKeys.frame],
+  ...state[storeKeys.customisation]
 })
 
 export default connect(mapStateToProps)(FrameConnector)

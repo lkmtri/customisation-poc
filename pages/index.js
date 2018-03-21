@@ -24,12 +24,6 @@ class Index extends React.PureComponent {
     typeof CustomisationSidebar.getInitialProps === 'function' && await CustomisationSidebar.getInitialProps(context)
   }
 
-  static getReducers = () => ({
-    ...CustomisationSidebar.getReducers(),
-    ...CustomisationPreview.getReducers(),
-    ...FrameConnector.getReducers()
-  })
-
   render () {
     return (
       <FrameConnector>

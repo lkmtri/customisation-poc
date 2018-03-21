@@ -2,7 +2,8 @@ import { REGISTER_PREVIEW_FRAME, UPDATE_NEXT_FRAME_URL } from './constants'
 
 export const initialState = {
   frame: null,
-  currentFrameUrl: 'index'
+  currentFrameUrl: 'index',
+  currentAction: {}
 }
 
 export const reducers = (state = initialState, action) => {
@@ -12,6 +13,6 @@ export const reducers = (state = initialState, action) => {
     case UPDATE_NEXT_FRAME_URL:
       return { ...state, currentFrameUrl: action.payload }
     default:
-      return state
+      return { ...state, currentAction: action }
   }
 }

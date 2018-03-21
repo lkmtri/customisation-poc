@@ -1,4 +1,5 @@
 import produce from 'immer'
+import { deepUpdate } from 'tools/object'
 import * as C from './constants'
 
 export const initialState = {
@@ -15,31 +16,31 @@ export const reducers = (state = initialState, action = {}) => {
     case C.UPDATE_THEME_SETTINGS:
       return produce(state, draftState => {
         const { key, value } = action.payload
-        draftState.themeSettingData[key] = value
+        deepUpdate(draftState, ['themeSettingData', key], value)
       })
     case C.UPDATE_SECTIONS_SETTINGS:
       return produce(state, draftState => {
         const { sectionId, key, value } = action.payload
-        draftState.sectionSettingData.sections[sectionId].settings[key] = value
+        deepUpdate(draftState, ['sectionSettingData', 'sections', sectionId, 'settings', key], value)
       })
     case C.UPDATE_SECTIONS_CONTENT:
       return produce(state, draftState => {
         const { sectionId, blockId, key, value } = action.payload
-        draftState.sectionSettingData.sections[sectionId].blocks[blockId].settings[key] = value
+        deepUpdate(draftState, ['sectionSettingData', 'sections', sectionId, 'blocks', blockId, 'settings', key], value)
       })
     case C.REORDER_SECTIONS:
       return produce(state, draftState => {
         const { page, nextSectionsOrder } = action.payload
-        draftState.sectionSettingData.pages[page] = nextSectionsOrder
+        deepUpdate(draftState, ['sectionSettingData', 'pages', page], nextSectionsOrder)
       })
     case C.REORDER_BLOCKS:
       return produce(state, draftState => {
         const { sectionId, nextBlocksOrder } = action.payload
-        draftState.sectionSettingData.sections[sectionId].blocksOrder = nextBlocksOrder
+        deepUpdate(draftState, ['sectionSettingData', 'sections', sectionId, 'blocksOrder'], nextBlocksOrder)
       })
     case C.GET_PREVIEW_TOKEN_SUCCESS:
       return produce(state, draftState => {
-        draftState.previewToken = action.payload
+        deepUpdate(draftState, ['previewToken'], action.payload)
       })
     case C.GET_PREVIEW_THEME_SUCCESS:
       return produce(state, draftState => {

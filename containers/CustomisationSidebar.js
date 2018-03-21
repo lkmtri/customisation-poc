@@ -2,14 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { storeKeys, actions } from 'redux-store'
 import ErrorBoundary from 'components/shared/ErrorBoundary'
 import Tab from 'components/shared/Tab'
 import SectionSettings from 'components/section-settings'
 import ThemeSettings from 'components/theme-settings'
-import { STORE_KEY as PREVIEW_STORE_KEY } from 'containers/CustomisationPreview/constants'
-import { STORE_KEY } from './constants'
-import * as actions from './actions'
-import { reducers } from './reducers'
 
 const CustomisationSidebarContainer = styled.div`
   background-color: #ccc;
@@ -19,12 +16,10 @@ const CustomisationSidebarContainer = styled.div`
 class CustomisationSidebar extends React.PureComponent {
   static async getInitialProps (context) {
     const { store } = context
-    await store.dispatch(actions.getPreviewTokenAction({ merchantId: '12345' }))
-    const previewToken = store.getState()[STORE_KEY].previewToken
-    await store.dispatch(actions.getThemeAction({ merchantId: '12345', previewToken }))
+    await store.dispatch(actions[storeKeys.customisation].getPreviewTokenAction({ merchantId: '12345' }))
+    const previewToken = store.getState()[storeKeys.customisation].previewToken
+    await store.dispatch(actions[storeKeys.customisation].getThemeAction({ merchantId: '12345', previewToken }))
   }
-
-  static getReducers = () => ({ [STORE_KEY]: reducers })
 
   render () {
     const { currentFrameUrl } = this.props
@@ -67,10 +62,13 @@ class CustomisationSidebar extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  ...state[STORE_KEY],
-  ...state[PREVIEW_STORE_KEY]
+  ...state[storeKeys.customisation],
+  ...state[storeKeys.frame]
 })
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  ...actions[storeKeys.customisation],
+  ...actions[storeKeys.frame]
+}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomisationSidebar)

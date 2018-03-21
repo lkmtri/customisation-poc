@@ -9,11 +9,6 @@ const getAction = (action) => typeof action === 'function'
   ? action()
   : ({ type: action })
 
-export const makeWithFrameUpdateAction = (action) => () => ({
-  type: action,
-  shouldUpdateFrame: true
-})
-
 export const asyncAction = ({
   api,
   requestAction,

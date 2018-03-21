@@ -2,9 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { reducers } from './reducers'
-import * as actions from './actions'
-import { STORE_KEY } from './constants'
+import { storeKeys, actions } from 'redux-store'
 
 const previewMode = {
   mobile: 'MOBILE',
@@ -57,8 +55,6 @@ class CustomisationPreview extends React.PureComponent {
   static defaultProps = {
     frameUrl: 'http://localhost:3001?preview=0'
   }
-
-  static getReducers = () => ({ [STORE_KEY]: reducers })
 
   state = {
     mode: previewMode.desktop
@@ -115,8 +111,10 @@ class CustomisationPreview extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({ ...state[STORE_KEY] })
+const mapStateToProps = (state) => ({ ...state[storeKeys.frame] })
 
-const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({
+  ...actions[storeKeys.frame]
+}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomisationPreview)
