@@ -53,7 +53,7 @@ const Frame = styled.iframe`
 
 class CustomisationPreview extends React.PureComponent {
   static defaultProps = {
-    frameUrl: 'http://localhost:3001'
+    frameUrl: 'http://localhost'
   }
 
   state = {

@@ -21,7 +21,7 @@ const PortalContainer = styled.div`
 
 class Index extends React.PureComponent {
   static async getInitialProps (context) {
-    typeof CustomisationSidebar.getInitialProps === 'function' && await CustomisationSidebar.getInitialProps(context)
+    await CustomisationSidebar.getInitialProps(context)
   }
 
   render () {

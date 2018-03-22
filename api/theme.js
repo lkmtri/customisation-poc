@@ -1,16 +1,6 @@
-import axios from 'axios'
+import { BASE_URL, GET, POST } from 'tools/fetch'
 
-const BASE_URL = 'http://localhost:3002'
-
-const GET = (url) => axios.get(url)
-  .then(({ data }) => data)
-  .catch(({ error, errorCode }) => ({ error, errorCode }))
-
-const POST = (url, data) => axios.post(url, data)
-  .then(({ data }) => data)
-  .catch(({ error, errorCode }) => ({ error, errorCode }))
-
-export const getPreviewToken = ({ merchantId }) => GET(`${BASE_URL}/preview-token?merchantId=${merchantId}`)
+export const getPreviewToken = () => GET(`${BASE_URL}/preview-token`)
 
 export const loadPreviewTheme = ({ previewToken }) => GET(`${BASE_URL}/theme-preview?previewToken=${previewToken}`)
 
