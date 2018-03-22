@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Page from 'decorators/Page'
+import Protected from 'decorators/Protected'
 import CustomisationSidebar from 'containers/CustomisationSidebar'
 import CustomisationPreview from 'containers/CustomisationPreview'
 import FrameConnector from 'containers/FrameConnector'
@@ -39,4 +40,4 @@ class Index extends React.PureComponent {
   }
 }
 
-export default Page(Index)
+export default Page(Protected(Index))

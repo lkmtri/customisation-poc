@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { storeKeys, actions } from 'redux-store'
@@ -14,15 +13,9 @@ const CustomisationSidebarContainer = styled.div`
   width: 300px;
 `
 
-const isServer = typeof window === 'undefined'
-
 class CustomisationSidebar extends React.PureComponent {
   static async getInitialProps (context) {
     const { store } = context
-    if (isServer) {
-      const cookie = context.req.headers.cookie
-      axios.defaults.headers.common['Cookie'] = cookie
-    }
     await store.dispatch(actions[storeKeys.customisation].getPreviewTokenAction())
     const previewToken = store.getState()[storeKeys.customisation].previewToken
     await store.dispatch(actions[storeKeys.customisation].getThemeAction({ previewToken }))

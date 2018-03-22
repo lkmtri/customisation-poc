@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Router from 'next/router'
 import Cookies from 'js-cookie'
+import Page from 'decorators/Page'
 import { TextStyle } from 'components/shared/Typo'
 import { loginUser } from 'api/auth'
 
@@ -49,6 +50,14 @@ const LoginButton = styled.button`
 `
 
 class Login extends React.PureComponent {
+  // async componentDidMount () {
+  //   const data = await loginUser({})
+  //   console.log(data)
+  //   if (data.sessionId) {
+  //     Router.push('/')
+  //   }
+  // }
+
   loginUser = async () => {
     const data = await loginUser({
       username: this._username.value,
@@ -84,4 +93,4 @@ class Login extends React.PureComponent {
   }
 }
 
-export default Login
+export default Page(Login)
