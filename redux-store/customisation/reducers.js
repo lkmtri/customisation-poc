@@ -47,6 +47,15 @@ export const reducers = (state = initialState, action = {}) => {
           draftState.sectionSettingData.pages[page].concat([id])
         )
       })
+    case C.REMOVE_SECTION:
+      return produce(state, draftState => {
+        const { page, sectionId } = action.payload
+        deepUpdate(
+          draftState,
+          ['sectionSettingData', 'pages', page],
+          draftState.sectionSettingData.pages[page].filter(e => e !== sectionId)
+        )
+      })
     case C.GET_PREVIEW_TOKEN_SUCCESS:
       return produce(state, draftState => {
         draftState.previewToken = action.payload

@@ -34,6 +34,18 @@ const DragHandlerContainer = styled.span`
   cursor: grab;
 `
 
+const RemoveSectionAction = styled.div`
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  width: 100%;
+  height: 50px;
+  background-color: #999;
+  color: #fff;
+  cursor: pointer;
+`
+
 class SectionSettingsInput extends React.PureComponent {
   static defaultProps = {
     schema: {},
@@ -96,6 +108,13 @@ class SectionSettingType extends React.PureComponent {
     this.setState({ showSectionSettings: false })
   }
 
+  handleRemoveSection = (e) => {
+    e.stopPropagation()
+    const { removeSectionAction, page, sectionId } = this.props
+    removeSectionAction({ page, sectionId })
+    this.setState({ showSectionSettings: false })
+  }
+
   render () {
     const { sectionId, schema, data, updateSectionSettingsAction, updateSectionContentAction, reorderBlocksAction, DragHandlerComponent } = this.props
     const { showSectionSettings } = this.state
@@ -113,6 +132,7 @@ class SectionSettingType extends React.PureComponent {
               updateSectionSettingsAction={updateSectionSettingsAction}
               updateSectionContentAction={updateSectionContentAction}
               reorderBlocksAction={reorderBlocksAction} />
+            <RemoveSectionAction onClick={this.handleRemoveSection}>RemoveSection</RemoveSectionAction>
           </SidebarModal>
         )}
       </Container>
@@ -125,13 +145,14 @@ const DragHandler = SortableHandle(() => <DragHandlerContainer>::</DragHandlerCo
 const SortableSectionSettingType = SortableElement((props) => <SectionSettingType {...props} DragHandlerComponent={DragHandler} />)
 
 export const SortableSectionSettingTypeList = SortableContainer(
-  ({ page = 'index', schema, data, updateSectionSettingsAction, updateSectionContentAction, reorderBlocksAction }) => (
+  ({ page = 'index', schema, data, updateSectionSettingsAction, updateSectionContentAction, reorderBlocksAction, removeSectionAction }) => (
     <SortableList>
       {data.pages[page].map((sectionId, index) => {
         const sectionData = data.sections[sectionId]
         const sectionSchema = schema.find(_sectionSchema => _sectionSchema.type === sectionData.type)
         return (
           <SortableSectionSettingType
+            page={page}
             index={index}
             key={sectionId}
             sectionId={sectionId}
@@ -139,7 +160,8 @@ export const SortableSectionSettingTypeList = SortableContainer(
             data={sectionData}
             updateSectionSettingsAction={updateSectionSettingsAction}
             updateSectionContentAction={updateSectionContentAction}
-            reorderBlocksAction={reorderBlocksAction} />
+            reorderBlocksAction={reorderBlocksAction}
+            removeSectionAction={removeSectionAction} />
         )
       })}
     </SortableList>
