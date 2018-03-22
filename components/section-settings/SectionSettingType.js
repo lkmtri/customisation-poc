@@ -116,7 +116,7 @@ class SectionSettingType extends React.PureComponent {
   }
 
   render () {
-    const { sectionId, schema, data, updateSectionSettingsAction, updateSectionContentAction, reorderBlocksAction, DragHandlerComponent } = this.props
+    const { sectionId, schema, data, updateSectionSettingsAction, updateSectionContentAction, reorderBlocksAction, removeSectionAction, DragHandlerComponent } = this.props
     const { showSectionSettings } = this.state
 
     return (
@@ -132,7 +132,9 @@ class SectionSettingType extends React.PureComponent {
               updateSectionSettingsAction={updateSectionSettingsAction}
               updateSectionContentAction={updateSectionContentAction}
               reorderBlocksAction={reorderBlocksAction} />
-            <RemoveSectionAction onClick={this.handleRemoveSection}>RemoveSection</RemoveSectionAction>
+            {removeSectionAction && (
+              <RemoveSectionAction onClick={this.handleRemoveSection}>RemoveSection</RemoveSectionAction>
+            )}
           </SidebarModal>
         )}
       </Container>

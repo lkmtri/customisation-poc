@@ -38,7 +38,7 @@ class Radio extends React.PureComponent {
   }
 
   getCheckStatus = (value) => {
-    const { value: _selectedOptions, defaultValue } = this.props
+    const { value: _selectedOptions, default: defaultValue } = this.props
     const selectedOptions = _selectedOptions || defaultValue
     return selectedOptions.findIndex((el) => el === value) >= 0
   }
