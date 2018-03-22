@@ -24,7 +24,7 @@ class CustomisationSidebar extends React.PureComponent {
   render () {
     const { currentFrameUrl } = this.props
     const { themeSettingSchema, themeSettingData, updateThemeSettingsAction } = this.props
-    const { sectionSettingSchema, sectionSettingData, updateSectionSettingsAction, updateSectionContentAction, reorderSectionsAction, reorderBlocksAction } = this.props
+    const { sectionSettingSchema, sectionSettingData, updateSectionSettingsAction, updateSectionContentAction, reorderSectionsAction, reorderBlocksAction, addNewSectionAction } = this.props
 
     return (
       <ErrorBoundary>
@@ -50,6 +50,7 @@ class CustomisationSidebar extends React.PureComponent {
                       updateSectionContentAction={updateSectionContentAction}
                       reorderSectionsAction={reorderSectionsAction}
                       reorderBlocksAction={reorderBlocksAction}
+                      addNewSectionAction={addNewSectionAction}
                     />
                   )
               }

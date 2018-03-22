@@ -37,6 +37,16 @@ export const reducers = (state = initialState, action = {}) => {
         const { sectionId, nextBlocksOrder } = action.payload
         deepUpdate(draftState, ['sectionSettingData', 'sections', sectionId, 'blocksOrder'], nextBlocksOrder)
       })
+    case C.ADD_NEW_SECTION:
+      return produce(state, draftState => {
+        const { page, id, data } = action.payload
+        deepUpdate(draftState, ['sectionSettingData', 'sections', id], data)
+        deepUpdate(
+          draftState,
+          ['sectionSettingData', 'pages', page],
+          draftState.sectionSettingData.pages[page].concat([id])
+        )
+      })
     case C.GET_PREVIEW_TOKEN_SUCCESS:
       return produce(state, draftState => {
         draftState.previewToken = action.payload

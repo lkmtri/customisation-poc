@@ -2,10 +2,23 @@ import React from 'react'
 import styled from 'styled-components'
 import { arrayMove } from 'react-sortable-hoc'
 import SectionSettingType, { SortableSectionSettingTypeList } from 'components/section-settings/SectionSettingType'
+import AddNewSection from 'components/section-settings/AddNewSection'
 
 const Container = styled.div`
-  height: 100%;
-  overflow: scroll;
+  height: calc(100% - 50px);
+  display: flex;
+  flex-direction: column;
+`
+
+const SectionSettingsContainer = styled.div`
+  flex: 1 1 auto;
+  overflow-y: scroll;
+`
+
+const SectionActionContainer = styled.div`
+  height: 50px;
+  min-height: 50px;
+  background-color: #999;
 `
 
 class SectionSidebar extends React.PureComponent {
@@ -20,14 +33,14 @@ class SectionSidebar extends React.PureComponent {
   }
 
   render () {
-    const { page, schema, data, updateSectionSettingsAction, updateSectionContentAction, reorderBlocksAction } = this.props
+    const { page, schema, data, updateSectionSettingsAction, updateSectionContentAction, reorderBlocksAction, addNewSectionAction } = this.props
     const headerSchema = schema.find(sectionSchema => sectionSchema.type === 'header')
     const footerSchema = schema.find(sectionSchema => sectionSchema.type === 'footer')
 
     return (
       <Container>
         {data.sections && (
-          <React.Fragment>
+          <SectionSettingsContainer>
             <SectionSettingType
               sectionId={'header'}
               schema={headerSchema}
@@ -50,8 +63,13 @@ class SectionSidebar extends React.PureComponent {
               data={data.sections.footer}
               updateSectionSettingsAction={updateSectionSettingsAction}
               updateSectionContentAction={updateSectionContentAction} />
-          </React.Fragment>
+            <AddNewSection
+              page={page}
+              schema={schema}
+              addNewSectionAction={addNewSectionAction} />
+          </SectionSettingsContainer>
         )}
+        <SectionActionContainer />
       </Container>
     )
   }

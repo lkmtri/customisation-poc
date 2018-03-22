@@ -26,6 +26,10 @@ export const reorderBlocksAction = withFrameUpdate(
   ({ sectionId, nextBlocksOrder }) => ({ type: C.REORDER_BLOCKS, payload: { sectionId, nextBlocksOrder } })
 )
 
+export const addNewSectionAction = withFrameUpdate(
+  ({ page, id, data }) => ({ type: C.ADD_NEW_SECTION, payload: { page, id, data } })
+)
+
 export const getPreviewTokenAction = asyncAction({
   api: getPreviewToken,
   requestAction: C.GET_PREVIEW_TOKEN_REQUEST,
