@@ -7,7 +7,7 @@ class FrameConnector extends React.PureComponent {
     if (window !== undefined) {
       const { dispatch } = this.props
       window.addEventListener('message', function (event) {
-        if (event.origin === 'http://localhost') {
+        if (event.origin === 'http://fesc.localhost') {
           dispatch(event.data)
         }
       })
@@ -22,7 +22,7 @@ class FrameConnector extends React.PureComponent {
   pushUpdateToPreviewFrame = (update) => {
     const { frame } = this.props
     if (window !== undefined) {
-      frame && frame.contentWindow.postMessage(update, 'http://localhost')
+      frame && frame.contentWindow.postMessage(update, 'http://fesc.localhost')
     }
   }
 
