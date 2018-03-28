@@ -25,6 +25,5 @@ const makePageComponent = (PageComponent) =>
 
 export default (wrappedComponent) => {
   const PageComponent = makePageComponent(wrappedComponent)
-  console.log(PageComponent)
   return withRedux(PageComponent)
 }

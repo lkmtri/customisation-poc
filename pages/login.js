@@ -50,14 +50,6 @@ const LoginButton = styled.button`
 `
 
 class Login extends React.PureComponent {
-  // async componentDidMount () {
-  //   const data = await loginUser({})
-  //   console.log(data)
-  //   if (data.sessionId) {
-  //     Router.push('/')
-  //   }
-  // }
-
   loginUser = async () => {
     const data = await loginUser({
       username: this._username.value,

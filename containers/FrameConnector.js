@@ -1,13 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import config from 'config'
 import { storeKeys } from 'redux-store'
+
+const { fescBaseUrl } = config
 
 class FrameConnector extends React.PureComponent {
   componentDidMount () {
     if (window !== undefined) {
       const { dispatch } = this.props
       window.addEventListener('message', function (event) {
-        if (event.origin === 'http://fesc.localhost') {
+        if (event.origin === fescBaseUrl) {
           dispatch(event.data)
         }
       })
@@ -22,7 +25,7 @@ class FrameConnector extends React.PureComponent {
   pushUpdateToPreviewFrame = (update) => {
     const { frame } = this.props
     if (window !== undefined) {
-      frame && frame.contentWindow.postMessage(update, 'http://fesc.localhost')
+      frame && frame.contentWindow.postMessage(update, fescBaseUrl)
     }
   }
 

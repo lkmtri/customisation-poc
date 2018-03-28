@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import config from 'config'
 import { storeKeys, actions } from 'redux-store'
 
 const previewMode = {
@@ -53,7 +54,7 @@ const Frame = styled.iframe`
 
 class CustomisationPreview extends React.PureComponent {
   static defaultProps = {
-    frameUrl: 'http://fesc.localhost'
+    frameUrl: config.fescBaseUrl
   }
 
   state = {

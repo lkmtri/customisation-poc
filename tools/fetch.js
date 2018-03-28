@@ -1,6 +1,7 @@
 import axios from 'axios'
+import config from 'config'
 
-export const BASE_URL = 'http://oms.localhost/api'
+export const BASE_URL = config.omsBaseUrl
 
 export const GET = (url) =>
   axios({

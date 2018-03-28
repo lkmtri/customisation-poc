@@ -5,6 +5,7 @@ import Protected from 'decorators/Protected'
 import CustomisationSidebar from 'containers/CustomisationSidebar'
 import CustomisationPreview from 'containers/CustomisationPreview'
 import FrameConnector from 'containers/FrameConnector'
+import SocketConnector from 'containers/SocketConnetor'
 import Flex from 'components/shared/Flex'
 
 const PageContainer = styled.div`
@@ -27,15 +28,17 @@ class Index extends React.PureComponent {
 
   render () {
     return (
-      <FrameConnector>
-        <PageContainer>
-          <Flex style={{ height: '100%', width: '100%' }}>
-            <CustomisationSidebar />
-            <CustomisationPreview />
-          </Flex>
-          <PortalContainer id='portal-node' />
-        </PageContainer>
-      </FrameConnector>
+      <SocketConnector>
+        <FrameConnector>
+          <PageContainer>
+            <Flex style={{ height: '100%', width: '100%' }}>
+              <CustomisationSidebar />
+              <CustomisationPreview />
+            </Flex>
+            <PortalContainer id='portal-node' />
+          </PageContainer>
+        </FrameConnector>
+      </SocketConnector>
     )
   }
 }

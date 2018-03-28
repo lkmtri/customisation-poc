@@ -1,6 +1,9 @@
 import React from 'react'
 import Router from 'next/router'
+import config from 'config'
 import { loginUser } from 'api/auth'
+
+const { customisationUIBaseUrl } = config
 
 const makeProtectedPage = (PageComponent) =>
   class Page extends React.PureComponent {
@@ -10,11 +13,11 @@ const makeProtectedPage = (PageComponent) =>
         const { res } = context
         if (res) {
           res.writeHead(302, {
-            Location: 'http://oms.localhost/login'
+            Location: `${customisationUIBaseUrl}/login`
           })
           res.end()
         } else {
-          Router.replace('http://oms.localhost/login')
+          Router.replace(`${customisationUIBaseUrl}/login`)
         }
         return
       }
