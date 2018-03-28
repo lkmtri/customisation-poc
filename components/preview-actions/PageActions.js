@@ -49,6 +49,7 @@ class PageActions extends React.PureComponent {
         {showPageDropdown && (
           <DropdownContainer>
             {pageNames.map((pageName) => (<PageItem onClick={this.changePage(pageName)}>{pageName}</PageItem>))}
+            <PageItem>Add New Page</PageItem>
           </DropdownContainer>
         )}
       </Container>

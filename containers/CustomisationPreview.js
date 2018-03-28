@@ -88,7 +88,12 @@ class CustomisationPreview extends React.PureComponent {
     }
   }
 
-  changePage = (pageName) => this.setState({ pageName })
+  changePage = (pageName) => {
+    this.setState(
+      state => ({ ...state, pageName }),
+      () => this.props.updateFrameUrlAction(pageName)
+    )
+  }
 
   render () {
     const { previewToken, frameUrl, currentFrameUrl, saveChangesAction, pages } = this.props
