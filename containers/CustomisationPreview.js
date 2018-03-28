@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import config from 'config'
 import { storeKeys, actions } from 'redux-store'
+import PageActions from 'components/preview-actions/PageActions'
 
 const previewMode = {
   mobile: 'MOBILE',
@@ -54,7 +55,8 @@ const Frame = styled.iframe`
 
 class CustomisationPreview extends React.PureComponent {
   static defaultProps = {
-    frameUrl: config.fescBaseUrl
+    frameUrl: config.fescBaseUrl,
+    currentFrameUrl: 'index'
   }
 
   state = {
@@ -86,14 +88,20 @@ class CustomisationPreview extends React.PureComponent {
     }
   }
 
+  changePage = (pageName) => this.setState({ pageName })
+
   render () {
-    const { previewToken, frameUrl, currentFrameUrl, saveChangesAction } = this.props
-    const { mode } = this.state
+    const { previewToken, frameUrl, currentFrameUrl, saveChangesAction, pages } = this.props
+    const { mode, pageName } = this.state
+
     return (
       <Container>
         <PreviewActions>
           <PreviewActionGroup>
-            {currentFrameUrl}
+            <PageActions
+              currentFrameUrl={currentFrameUrl}
+              pages={pages}
+              changePage={this.changePage} />
           </PreviewActionGroup>
           <PreviewActionGroup>
             <PreviewActionItem onClick={this.setPreviewMode(previewMode.mobile)}>Mobile</PreviewActionItem>
@@ -104,7 +112,13 @@ class CustomisationPreview extends React.PureComponent {
           </PreviewActionGroup>
         </PreviewActions>
         <FrameContainer >
-          {previewToken && <Frame id='preview-frame' previewMode={mode} src={`${frameUrl}?preview=${previewToken}`} sandbox='allow-forms allow-scripts allow-same-origin allow-popups' />}
+          {previewToken && (
+            <Frame
+              id='preview-frame'
+              previewMode={mode}
+              src={`${frameUrl}/${pageName || ''}?preview=${previewToken}`}
+              sandbox='allow-forms allow-scripts allow-same-origin allow-popups' />
+          )}
         </FrameContainer>
       </Container>
     )
@@ -113,6 +127,7 @@ class CustomisationPreview extends React.PureComponent {
 
 const mapStateToProps = (state) => ({
   previewToken: state[storeKeys.customisation].previewToken,
+  pages: state[storeKeys.customisation].sectionSettingData.pages,
   ...state[storeKeys.frame]
 })
 

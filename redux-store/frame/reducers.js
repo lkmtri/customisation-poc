@@ -1,4 +1,4 @@
-import { REGISTER_PREVIEW_FRAME, UPDATE_NEXT_FRAME_URL } from './constants'
+import * as C from './constants'
 
 export const initialState = {
   frame: null,
@@ -8,9 +8,9 @@ export const initialState = {
 
 export const reducers = (state = initialState, action) => {
   switch (action.type) {
-    case REGISTER_PREVIEW_FRAME:
+    case C.REGISTER_PREVIEW_FRAME:
       return { ...state, frame: action.payload }
-    case UPDATE_NEXT_FRAME_URL:
+    case C.UPDATE_NEXT_FRAME_URL:
       return { ...state, currentFrameUrl: action.payload }
     default:
       return { ...state, currentAction: action }

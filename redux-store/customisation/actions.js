@@ -58,3 +58,8 @@ export const saveChangesAction = () => asyncAction({
   const { previewToken, themeSettingData: themeSettings, sectionSettingData: sectionSettings } = state
   return { previewToken, themeSettings, sectionSettings }
 })
+
+export const saveThemeSchemaUpdateAction = ({ themeSettingSchema, sectionSettingSchema }) => ({
+  type: C.SAVE_THEME_SCHEMA_UPDATE,
+  payload: { themeSettingSchema, sectionSettingSchema }
+})

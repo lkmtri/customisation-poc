@@ -9,3 +9,5 @@ const executeOnlyIf = (methodName, condition) => (fn) => (...param) => {
 }
 
 export const executeIfDevEnv = executeOnlyIf('executeIfDevEnv', process.env.APP_ENV === 'dev')
+
+export const executeOnBrowserOnly = executeOnlyIf('executeOnBrowserOnly', typeof window !== 'undefined')

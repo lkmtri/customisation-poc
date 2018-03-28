@@ -70,6 +70,12 @@ export const reducers = (state = initialState, action = {}) => {
         draftState.sectionSettingData = themeData.sectionSettings
         draftState.sectionSettingSchema = themeSchema.sectionSettingSchema
       })
+    case C.SAVE_THEME_SCHEMA_UPDATE:
+      return produce(state, draftState => {
+        const { themeSettingSchema, sectionSettingSchema } = action.payload
+        draftState.themeSettingSchema = themeSettingSchema
+        draftState.sectionSettingSchema = sectionSettingSchema
+      })
     case C.GET_PREVIEW_TOKEN_FAILURE:
       return state
     default:

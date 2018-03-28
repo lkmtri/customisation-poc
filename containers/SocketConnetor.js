@@ -1,6 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import socket from 'socket.io-client'
 import config from 'config'
+import { actions, storeKeys } from 'redux-store'
 import { executeIfDevEnv } from 'tools/function'
 
 class SocketConnector extends React.PureComponent {
@@ -23,7 +26,7 @@ class SocketConnector extends React.PureComponent {
 
   listenForThemeSchemaUpdate = executeIfDevEnv(() => {
     this.io.on('theme_schema_update', (data) => {
-      console.log(data)
+      this.props.saveThemeSchemaUpdateAction(data)
     })
   })
 
@@ -36,4 +39,8 @@ class SocketConnector extends React.PureComponent {
   }
 }
 
-export default SocketConnector
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  ...actions[storeKeys.customisation]
+}, dispatch)
+
+export default connect(null, mapDispatchToProps)(SocketConnector)
