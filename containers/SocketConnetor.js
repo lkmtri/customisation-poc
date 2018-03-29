@@ -25,8 +25,18 @@ class SocketConnector extends React.PureComponent {
   })
 
   listenForThemeSchemaUpdate = executeIfDevEnv(() => {
-    this.io.on('theme_schema_update', (data) => {
-      this.props.saveThemeSchemaUpdateAction(data)
+    this.io.on('theme_schema_update', ({
+      themeSettingSchema,
+      sectionSettingSchema,
+      previewThemeSettings: themeSettings,
+      previewSectionSettings: sectionSettings
+    }) => {
+      this.props.saveThemeSchemaUpdateAction({
+        themeSettingSchema,
+        sectionSettingSchema,
+        themeSettings,
+        sectionSettings
+      })
     })
   })
 
