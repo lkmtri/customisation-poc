@@ -30,6 +30,10 @@ export const addNewSectionAction = withFrameUpdate(
   ({ page, id, data }) => ({ type: C.ADD_NEW_SECTION, payload: { page, id, data } })
 )
 
+export const addNewPageAction = withFrameUpdate(
+  ({ pageName }) => ({ type: C.ADD_NEW_PAGE, payload: { pageName } })
+)
+
 export const removeSectionAction = withFrameUpdate(
   ({ page, sectionId }) => ({ type: C.REMOVE_SECTION, payload: { page, sectionId } })
 )

@@ -76,6 +76,11 @@ export const reducers = (state = initialState, action = {}) => {
         draftState.themeSettingSchema = themeSettingSchema
         draftState.sectionSettingSchema = sectionSettingSchema
       })
+    case C.ADD_NEW_PAGE:
+      return produce(state, draftState => {
+        const { pageName } = action.payload
+        deepUpdate(draftState, ['sectionSettingData', 'pages', pageName], [])
+      })
     case C.GET_PREVIEW_TOKEN_FAILURE:
       return state
     default:

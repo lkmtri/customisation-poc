@@ -96,7 +96,7 @@ class CustomisationPreview extends React.PureComponent {
   }
 
   render () {
-    const { previewToken, frameUrl, currentFrameUrl, saveChangesAction, pages } = this.props
+    const { previewToken, frameUrl, currentFrameUrl, saveChangesAction, addNewPageAction, pages } = this.props
     const { mode, pageName } = this.state
 
     return (
@@ -106,7 +106,8 @@ class CustomisationPreview extends React.PureComponent {
             <PageActions
               currentFrameUrl={currentFrameUrl}
               pages={pages}
-              changePage={this.changePage} />
+              changePage={this.changePage}
+              addNewPageAction={addNewPageAction} />
           </PreviewActionGroup>
           <PreviewActionGroup>
             <PreviewActionItem onClick={this.setPreviewMode(previewMode.mobile)}>Mobile</PreviewActionItem>
