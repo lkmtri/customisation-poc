@@ -89,15 +89,13 @@ class CustomisationPreview extends React.PureComponent {
   }
 
   changePage = (pageName) => {
-    this.setState(
-      state => ({ ...state, pageName }),
-      () => this.props.updateFrameUrlAction(pageName)
-    )
+    this.props.updateFrameUrlAction(pageName)
+    this.props.changePageAction(pageName)
   }
 
   render () {
     const { previewToken, frameUrl, currentFrameUrl, saveChangesAction, addNewPageAction, pages } = this.props
-    const { mode, pageName } = this.state
+    const { mode } = this.state
 
     return (
       <Container>
@@ -122,7 +120,7 @@ class CustomisationPreview extends React.PureComponent {
             <Frame
               id='preview-frame'
               previewMode={mode}
-              src={`${frameUrl}/${pageName || ''}?preview=${previewToken}`}
+              src={`${frameUrl}?preview=${previewToken}`}
               sandbox='allow-forms allow-scripts allow-same-origin allow-popups' />
           )}
         </FrameContainer>
