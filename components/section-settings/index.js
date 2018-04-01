@@ -15,11 +15,11 @@ const SectionSettingsContainer = styled.div`
   overflow-y: scroll;
 `
 
-const SectionActionContainer = styled.div`
-  height: 50px;
-  min-height: 50px;
-  background-color: #999;
-`
+// const SectionActionContainer = styled.div`
+//   height: 50px;
+//   min-height: 50px;
+//   background-color: #999;
+// `
 
 class SectionSidebar extends React.PureComponent {
   static defaultProps = {
@@ -35,6 +35,7 @@ class SectionSidebar extends React.PureComponent {
   render () {
     const { page, schema, data, updateSectionSettingsAction, updateSectionContentAction,
       reorderBlocksAction, addNewSectionAction, removeSectionAction } = this.props
+    console.log(page, schema, data)
     const headerSchema = schema.find(sectionSchema => sectionSchema.type === 'header')
     const footerSchema = schema.find(sectionSchema => sectionSchema.type === 'footer')
 
@@ -42,12 +43,13 @@ class SectionSidebar extends React.PureComponent {
       <Container>
         {data.sections && (
           <SectionSettingsContainer>
-            <SectionSettingType
-              sectionId={'header'}
-              schema={headerSchema}
-              data={data.sections.header}
-              updateSectionSettingsAction={updateSectionSettingsAction}
-              updateSectionContentAction={updateSectionContentAction} />
+            {headerSchema && (
+              <SectionSettingType
+                sectionId={'header'}
+                schema={headerSchema}
+                data={data.sections.header}
+                updateSectionSettingsAction={updateSectionSettingsAction}
+                updateSectionContentAction={updateSectionContentAction} />)}
             <SortableSectionSettingTypeList
               page={page}
               schema={schema}
@@ -59,19 +61,20 @@ class SectionSidebar extends React.PureComponent {
               onSortEnd={this.reorderSections}
               lockAxis='y'
               useDragHandle />
-            <SectionSettingType
-              sectionId={'footer'}
-              schema={footerSchema}
-              data={data.sections.footer}
-              updateSectionSettingsAction={updateSectionSettingsAction}
-              updateSectionContentAction={updateSectionContentAction} />
+            {footerSchema && (
+              <SectionSettingType
+                sectionId={'footer'}
+                schema={footerSchema}
+                data={data.sections.footer}
+                updateSectionSettingsAction={updateSectionSettingsAction}
+                updateSectionContentAction={updateSectionContentAction} />)}
             <AddNewSection
               page={page}
               schema={schema}
               addNewSectionAction={addNewSectionAction} />
           </SectionSettingsContainer>
         )}
-        <SectionActionContainer />
+        {/* <SectionActionContainer /> */}
       </Container>
     )
   }
